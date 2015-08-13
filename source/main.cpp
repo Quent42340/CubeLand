@@ -11,22 +11,26 @@
  *
  * =====================================================================================
  */
-#include <SFML/Graphics.hpp>
+#include "Application.hpp"
+#include "Exception.hpp"
 
 int main(int, char*[]) {
-	sf::RenderWindow window(sf::VideoMode(640, 480), "SFML Window", sf::Style::Close);
-	
-	while(window.isOpen()) {
-		sf::Event event;
-		while(window.pollEvent(event)) {
-			if(event.type == sf::Event::Closed) {
-				window.close();
-			}
-			
-			window.clear();
-			
-			window.display();
-		}
+	try {
+		Application app;
+		
+		app.run();
+	}
+	catch(const Exception &e) {
+		std::cerr << "Fatal error " << e.what() << std::endl;
+		return 1;
+	}
+	catch(const std::exception &e) {
+		std::cerr << "Exception caught: " << e.what() << std::endl;
+		return 1;
+	}
+	catch(...) {
+		std::cerr << "Fatal error: Unknown error." << std::endl;
+		return 1;
 	}
 	
 	return 0;
