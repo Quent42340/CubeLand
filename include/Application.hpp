@@ -27,6 +27,9 @@ class Application {
 		
 		static bool quit;
 		
+		const static u16 screenWidth = 640;
+		const static u16 screenHeight = 480;
+		
 	private:
 		sf::RenderWindow m_window;
 		
