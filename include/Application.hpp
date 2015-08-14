@@ -17,7 +17,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "GameClock.hpp"
-#include "Player.hpp"
 
 class Application {
 	public:
@@ -36,8 +35,6 @@ class Application {
 		sf::RenderWindow m_window;
 		
 		GameClock m_clock;
-		
-		Player m_player;
 };
 
 #endif // APPLICATION_HPP_

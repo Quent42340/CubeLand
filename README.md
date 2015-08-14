@@ -15,7 +15,7 @@
 
 - Dependencies:
     - [CMake](http://www.cmake.org/download/)
-    - [SFML 2.3](http://www.sfml-dev.org)
+    - [SFML 2.3](http://www.sfml-dev.org/download/sfml/2.3.1/)
 	- _Linux users: Check your distribution repositories for packages._
 - Run `cmake .` at the root of the game folder
 - Run `make`, wait, run the game and enjoy!

@@ -12,14 +12,15 @@
  * =====================================================================================
  */
 #include "Application.hpp"
-
-#include "Map.hpp"
-#include "Sprite.hpp"
+#include "ApplicationStateStack.hpp"
+#include "LevelState.hpp"
 
 bool Application::quit = false;
 
 Application::Application() {
 	m_window.create(sf::VideoMode(screenWidth, screenHeight), "CubeLand", sf::Style::Close);
+	
+	ApplicationStateStack::getInstance().push<LevelState>();
 }
 
 void Application::handleEvents() {
@@ -32,36 +33,19 @@ void Application::handleEvents() {
 }
 
 void Application::run() {
-	Sprite tileset("graphics/tileset.png", 16, 16);
-	
-	Map map("data/maps/level0.tmx", tileset);
-	
-	sf::View view(sf::FloatRect(0, 0, screenWidth, screenHeight));
-	
-	Map::currentMap = &map;
-	
 	while(m_window.isOpen()) {
 		handleEvents();
 		
 		m_clock.updateGame([&] {
 			if(quit) m_window.close();
 			
-			m_player.update();
-			
-			sf::Vector2f playerCenter = m_player.getPosition() + sf::Vector2f(m_player.width(), m_player.height()) / 2.0f;
-			view.setCenter(floor(playerCenter.x), floor(playerCenter.y));
+			ApplicationStateStack::getInstance().top().update();
 		});
 		
 		m_clock.drawGame([&] {
 			m_window.clear();
 			
-			m_window.setView(view);
-			
-			m_window.draw(map);
-			
-			m_window.draw(m_player);
-			
-			m_window.setView(m_window.getDefaultView());
+			m_window.draw(ApplicationStateStack::getInstance().top());
 			
 			m_window.display();
 		});
