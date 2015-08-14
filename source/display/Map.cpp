@@ -17,25 +17,14 @@
 
 Map *Map::currentMap = nullptr;
 
-Map::Map(const char *filename, Sprite &tileset) {
-	XMLFile doc(filename);
+Map::Map(u16 width, u16 height, Sprite &tileset, const std::vector<u16> &tiles) {
+	m_width = width;
+	m_height = height;
 	
-	XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
+	m_tileWidth = tileset.frameWidth();
+	m_tileHeight = tileset.frameHeight();
 	
-	m_width = mapElement->IntAttribute("width");
-	m_height = mapElement->IntAttribute("height");
-	
-	XMLElement *tilesetElement = mapElement->FirstChildElement("tileset");
-	
-	m_tileWidth = tilesetElement->IntAttribute("tilewidth");
-	m_tileHeight = tilesetElement->IntAttribute("tileheight");
-	
-	XMLElement *tileElement = mapElement->FirstChildElement("layer")->FirstChildElement("data")->FirstChildElement("tile");
-	while(tileElement) {
-		m_tiles.push_back(tileElement->IntAttribute("gid") - 1);
-		
-		tileElement = tileElement->NextSiblingElement("tile");
-	}
+	m_tiles = tiles;
 	
 	m_renderer.init(m_width, m_height, tileset);
 	

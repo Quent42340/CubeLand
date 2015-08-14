@@ -29,9 +29,6 @@ class LevelState : public ApplicationState {
 	private:
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 		
-		Sprite m_tileset{"graphics/tileset.png", 16, 16};
-		Map m_map{"data/maps/level0.tmx", m_tileset};
-		
 		Player m_player;
 		
 		sf::View m_view{sf::FloatRect(0, 0, Application::screenWidth, Application::screenHeight)};

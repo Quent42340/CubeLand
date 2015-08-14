@@ -1,4 +1,4 @@
 ===== TODO =====
-- Make application state system
+- Use sf::Texture for TextureLoader, and use ResourceHandler in Image
 - Make map object system
 

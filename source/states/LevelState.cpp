@@ -12,9 +12,10 @@
  * =====================================================================================
  */
 #include "LevelState.hpp"
+#include "ResourceHandler.hpp"
 
 LevelState::LevelState() {
-	Map::currentMap = &m_map;
+	Map::currentMap = &ResourceHandler::getInstance().get<Map>("level0");
 }
 
 void LevelState::update() {

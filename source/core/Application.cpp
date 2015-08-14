@@ -14,11 +14,20 @@
 #include "Application.hpp"
 #include "ApplicationStateStack.hpp"
 #include "LevelState.hpp"
+#include "ResourceHandler.hpp"
+
+#include "LevelLoader.hpp"
+#include "TilesetLoader.hpp"
+#include "TextureLoader.hpp"
 
 bool Application::quit = false;
 
 Application::Application() {
 	m_window.create(sf::VideoMode(screenWidth, screenHeight), "CubeLand", sf::Style::Close);
+	
+	ResourceHandler::getInstance().loadConfigFile<LevelLoader>("data/config/levels.xml");
+	ResourceHandler::getInstance().loadConfigFile<TextureLoader>("data/config/textures.xml");
+	ResourceHandler::getInstance().loadConfigFile<TilesetLoader>("data/config/tilesets.xml");
 	
 	ApplicationStateStack::getInstance().push<LevelState>();
 }
