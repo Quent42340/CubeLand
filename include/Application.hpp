@@ -23,6 +23,8 @@ class Application {
 	public:
 		Application();
 		
+		void handleEvents();
+		
 		void run();
 		
 		static bool quit;

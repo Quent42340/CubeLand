@@ -1,3 +1,4 @@
 ===== TODO =====
-- Fix collision bug with Player's right side
+- Make application state system
+- Make map object system
 

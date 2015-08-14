@@ -14,11 +14,10 @@
 #ifndef PLAYER_HPP_
 #define PLAYER_HPP_
 
-#include <SFML/Graphics/RectangleShape.hpp>
-
 #include "IntTypes.hpp"
+#include "Image.hpp"
 
-class Player : public sf::RectangleShape {
+class Player : public Image {
 	public:
 		Player();
 		
@@ -36,9 +35,6 @@ class Player : public sf::RectangleShape {
 		};
 		
 	private:
-		float m_width = 16;
-		float m_height = 16;
-		
 		float m_speed = 0.5f;
 		float m_jumpSpeed = 3.0f;
 		

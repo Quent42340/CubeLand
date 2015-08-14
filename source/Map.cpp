@@ -17,7 +17,7 @@
 
 Map *Map::currentMap = nullptr;
 
-Map::Map(const char *filename, Sprite &tileset) : m_tileset(tileset) {
+Map::Map(const char *filename, Sprite &tileset) {
 	XMLFile doc(filename);
 	
 	XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
@@ -37,39 +37,13 @@ Map::Map(const char *filename, Sprite &tileset) : m_tileset(tileset) {
 		tileElement = tileElement->NextSiblingElement("tile");
 	}
 	
-	m_vertices.setPrimitiveType(sf::Triangles);
-	m_vertices.resize(m_width * m_height * 6);
+	m_renderer.init(m_width, m_height, tileset);
 	
 	for(u16 tileY = 0 ; tileY < m_height ; tileY++) {
 		for(u16 tileX = 0 ; tileX < m_width ; tileX++) {
-			updateTile(tileX, tileY);
+			m_renderer.updateTile(tileX, tileY, getTile(tileX, tileY));
 		}
 	}
-}
-
-void Map::updateTile(u16 tileX, u16 tileY) {
-	s16 tileNb = getTile(tileX, tileY);
-	
-	if(tileNb == -1) return;
-	
-	u16 tilesetX = tileNb % (m_tileset.width() / m_tileWidth);
-	u16 tilesetY = tileNb / (m_tileset.width() / m_tileWidth);
-	
-	sf::Vertex *triangle = &m_vertices[(tileX + tileY * m_width) * 6];
-	
-	triangle[0].position = sf::Vector2f(tileX * m_tileWidth, tileY * m_tileHeight);
-	triangle[1].position = sf::Vector2f((tileX + 1) * m_tileWidth, tileY * m_tileHeight);
-	triangle[2].position = sf::Vector2f(tileX * m_tileWidth, (tileY + 1) * m_tileHeight);
-	triangle[3].position = triangle[1].position;
-	triangle[4].position = triangle[2].position;
-	triangle[5].position = sf::Vector2f((tileX + 1) * m_tileWidth, (tileY + 1) * m_tileHeight);
-	
-	triangle[0].texCoords = sf::Vector2f(tilesetX * m_tileWidth, tilesetY * m_tileHeight);
-	triangle[1].texCoords = sf::Vector2f((tilesetX + 1) * m_tileWidth, tilesetY * m_tileHeight);
-	triangle[2].texCoords = sf::Vector2f(tilesetX * m_tileWidth, (tilesetY + 1) * m_tileHeight);
-	triangle[3].texCoords = triangle[1].texCoords;
-	triangle[4].texCoords = triangle[2].texCoords;
-	triangle[5].texCoords = sf::Vector2f((tilesetX + 1) * m_tileWidth, (tilesetY + 1) * m_tileHeight);
 }
 
 u16 Map::getTile(u16 tileX, u16 tileY) {
@@ -87,19 +61,21 @@ void Map::setTile(u16 tileX, u16 tileY, u16 tile) {
 	else if(tile != getTile(tileX, tileY)) {
 		m_tiles[tileX + tileY * m_width] = tile;
 		
-		updateTile(tileX, tileY);
+		m_renderer.updateTile(tileX, tileY, tile);
 	}
 }
 
+bool Map::inTile(float x, float y, u16 tile) {
+	return getTile(x / m_tileWidth, y / m_tileHeight) == tile;
+}
+
 bool Map::isPassable(float x, float y) {
-	return getTile(x / m_tileWidth, y / m_tileHeight) != 1;
+	return !inTile(x, y, 1);
 }
 
 void Map::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 	
-	states.texture = &m_tileset.texture();
-	
-	target.draw(m_vertices, states);
+	target.draw(m_renderer, states);
 }
 

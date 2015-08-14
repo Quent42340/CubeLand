@@ -22,6 +22,15 @@ Application::Application() {
 	m_window.create(sf::VideoMode(screenWidth, screenHeight), "CubeLand", sf::Style::Close);
 }
 
+void Application::handleEvents() {
+	sf::Event event;
+	while(m_window.pollEvent(event)) {
+		if(event.type == sf::Event::Closed) {
+			m_window.close();
+		}
+	}
+}
+
 void Application::run() {
 	Sprite tileset("graphics/tileset.png", 16, 16);
 	
@@ -32,19 +41,14 @@ void Application::run() {
 	Map::currentMap = &map;
 	
 	while(m_window.isOpen()) {
-		sf::Event event;
-		while(m_window.pollEvent(event)) {
-			if(event.type == sf::Event::Closed) {
-				m_window.close();
-			}
-		}
+		handleEvents();
 		
 		m_clock.updateGame([&] {
 			if(quit) m_window.close();
 			
 			m_player.update();
 			
-			sf::Vector2f playerCenter = m_player.getPosition() + m_player.getSize() / 2.0f;
+			sf::Vector2f playerCenter = m_player.getPosition() + sf::Vector2f(m_player.width(), m_player.height()) / 2.0f;
 			view.setCenter(floor(playerCenter.x), floor(playerCenter.y));
 		});
 		

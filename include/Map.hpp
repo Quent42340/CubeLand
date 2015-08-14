@@ -16,18 +16,16 @@
 
 #include <vector>
 
-#include "Sprite.hpp"
+#include "MapRenderer.hpp"
 
 class Map : public sf::Drawable, public sf::Transformable {
 	public:
 		Map(const char *filename, Sprite &tileset);
 		
-		void updateTile(u16 tileX, u16 tileY);
-		void updateTiles();
-		
 		u16 getTile(u16 tileX, u16 tileY);
 		void setTile(u16 tileX, u16 tileY, u16 tile);
 		
+		bool inTile(float x, float y, u16 tile);
 		bool isPassable(float x, float y);
 		
 		static Map *currentMap;
@@ -35,17 +33,15 @@ class Map : public sf::Drawable, public sf::Transformable {
 	private:
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 		
-		Sprite &m_tileset;
-		
 		u16 m_width;
 		u16 m_height;
 		
 		u8 m_tileWidth;
 		u8 m_tileHeight;
 		
-		std::vector<u8> m_tiles;
+		std::vector<u16> m_tiles;
 		
-		sf::VertexArray m_vertices;
+		MapRenderer m_renderer;
 };
 
 #endif // MAP_HPP_

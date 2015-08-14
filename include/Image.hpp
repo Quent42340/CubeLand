@@ -18,7 +18,7 @@
 
 #include "IntTypes.hpp"
 
-class Image : public sf::Drawable, sf::Transformable {
+class Image : public sf::Drawable, public sf::Transformable {
 	public:
 		Image() = default;
 		Image(const char *textureName);
@@ -29,7 +29,7 @@ class Image : public sf::Drawable, sf::Transformable {
 		void setPosRect(float x, float y, u16 width, u16 height);
 		
 		u16 width() const { return m_texture.getSize().x; }
-		u16 height() const { return m_texture.getSize().x; }
+		u16 height() const { return m_texture.getSize().y; }
 		
 		const sf::Texture &texture() const { return m_texture; }
 		

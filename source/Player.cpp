@@ -18,12 +18,8 @@
 
 #include "Debug.hpp"
 
-Player::Player() {
-	setFillColor(sf::Color(0, 155, 255));
-	
+Player::Player() : Image("graphics/player.png") {
 	setPosition(16, 16);
-	
-	setSize(sf::Vector2f(m_width, m_height));
 }
 
 void Player::checkCollisions() {
@@ -55,10 +51,10 @@ void Player::checkCollisions() {
 	// { 5, 8,10, 8},
 	// { 5,14,10,14}
 	float collisionMatrix[4][4] = {
-		{m_vx + m_width - 1,                   0, m_vx + m_width - 1,        m_height - 1},
-		{              m_vx,                   0,               m_vx,        m_height - 1},
-		{                 0,                m_vy,        m_width - 1,                m_vy},
-		{                 0, m_vy + m_height - 1,        m_width - 1, m_vy + m_height - 1}
+		{m_vx + (float)width() - 1,                          0, m_vx + (float)width() - 1,        (float)height() - 1},
+		{                     m_vx,                          0,                      m_vx,        (float)height() - 1},
+		{                        0,                       m_vy,        (float)width() - 1,                       m_vy},
+		{                        0, m_vy + (float)height() - 1,        (float)width() - 1, m_vy + (float)height() - 1}
 	};
 	
 	for(u8 i = 0 ; i < 4 ; i++) {

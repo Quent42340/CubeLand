@@ -34,6 +34,8 @@ void Image::setPosRect(float x, float y, u16 width, u16 height) {
 }
 
 void Image::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-	target.draw(*this, states);
+	states.transform *= getTransform();
+	
+	target.draw(m_sprite, states);
 }
 
