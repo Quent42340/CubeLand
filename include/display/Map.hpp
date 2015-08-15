@@ -20,7 +20,7 @@
 
 class Map : public sf::Drawable, public sf::Transformable {
 	public:
-		Map(u16 width, u16 height, Sprite &tileset, const std::vector<u16> &tiles);
+		Map(u16 width, u16 height, Tileset &tileset, const std::vector<u16> &tiles);
 		
 		u16 getTile(u16 tileX, u16 tileY);
 		void setTile(u16 tileX, u16 tileY, u16 tile);
@@ -35,9 +35,6 @@ class Map : public sf::Drawable, public sf::Transformable {
 		
 		u16 m_width;
 		u16 m_height;
-		
-		u8 m_tileWidth;
-		u8 m_tileHeight;
 		
 		std::vector<u16> m_tiles;
 		

@@ -23,8 +23,6 @@ class Image : public sf::Drawable, public sf::Transformable {
 		Image() = default;
 		Image(const char *textureName);
 		
-		void load(const char *textureName);
-		
 		void setClipRect(float x, float y, u16 width, u16 height);
 		void setPosRect(float x, float y, u16 width, u16 height);
 		
@@ -36,7 +34,7 @@ class Image : public sf::Drawable, public sf::Transformable {
 	private:
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 		
-		sf::Texture m_texture;
+		sf::Texture &m_texture;
 		
 		sf::Sprite m_sprite;
 };

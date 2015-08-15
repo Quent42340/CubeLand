@@ -12,14 +12,9 @@
  * =====================================================================================
  */
 #include "Image.hpp"
+#include "ResourceHandler.hpp"
 
-Image::Image(const char *textureName) {
-	load(textureName);
-}
-
-void Image::load(const char *textureName) {
-	m_texture.loadFromFile(textureName);
-	
+Image::Image(const char *textureName) : m_texture(ResourceHandler::getInstance().get<sf::Texture>(textureName)){
 	m_sprite.setTexture(m_texture, true);
 }
 

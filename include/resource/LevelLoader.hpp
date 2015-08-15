@@ -15,13 +15,13 @@
 #define LEVELLOADER_HPP_
 
 #include "ResourceLoader.hpp"
-#include "Sprite.hpp"
+#include "Tileset.hpp"
 
 class LevelLoader : public ResourceLoader {
 	public:
 		void load(const char *xmlFilename, ResourceHandler &handler);
 		
-		void loadLevel(u16 id, Sprite &tileset, ResourceHandler &handler);
+		void loadLevel(u16 id, Tileset &tileset, ResourceHandler &handler);
 };
 
 #endif // LEVELLOADER_HPP_

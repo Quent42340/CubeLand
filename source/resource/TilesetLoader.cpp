@@ -11,7 +11,7 @@
  *
  * =====================================================================================
  */
-#include "Sprite.hpp"
+#include "Tileset.hpp"
 #include "TilesetLoader.hpp"
 #include "XMLFile.hpp"
 
@@ -23,12 +23,10 @@ void TilesetLoader::load(const char *xmlFilename, ResourceHandler &handler) {
 		std::string name = tilesetElement->Attribute("name");
 		std::string filename = "graphics/tilesets/" + name + ".png";
 		
-		//std::string configFile = "data/tilesets/" + name + ".xml";
-		
 		u16 tileWidth = tilesetElement->IntAttribute("tileWidth");
 		u16 tileHeight = tilesetElement->IntAttribute("tileHeight");
 		
-		handler.add<Sprite>(name, filename, tileWidth, tileHeight);
+		handler.add<Tileset>(name, filename, tileWidth, tileHeight);
 		
 		tilesetElement = tilesetElement->NextSiblingElement("tileset");
 	}

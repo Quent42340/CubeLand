@@ -11,9 +11,8 @@
  *
  * =====================================================================================
  */
-#include "Level.hpp"
 #include "LevelLoader.hpp"
-#include "SceneObjectLoader.hpp"
+#include "Map.hpp"
 
 void LevelLoader::load(const char *xmlFilename, ResourceHandler &handler) {
 	XMLFile doc(xmlFilename);
@@ -22,17 +21,15 @@ void LevelLoader::load(const char *xmlFilename, ResourceHandler &handler) {
 	while(levelElement) {
 		u16 id = levelElement->IntAttribute("id");
 		
-		std::string tilesetName = levelElement->Attribute("tileset");
+		Tileset &tileset = handler.get<Tileset>(levelElement->Attribute("tileset"));
 		
-		Sprite &tileset = handler.get<Sprite>(tilesetName);
-		
-		loadLevel(name, tileset, handler);
+		loadLevel(id, tileset, handler);
 		
 		levelElement = levelElement->NextSiblingElement("level");
 	}
 }
 
-void LevelLoader::loadLevel(u16 id, Sprite &tileset, ResourceHandler &handler) {
+void LevelLoader::loadLevel(u16 id, Tileset &tileset, ResourceHandler &handler) {
 	XMLFile doc("data/maps/level" + std::to_string(id) + ".tmx");
 	
 	XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
@@ -50,6 +47,6 @@ void LevelLoader::loadLevel(u16 id, Sprite &tileset, ResourceHandler &handler) {
 		tileElement = tileElement->NextSiblingElement("tile");
 	}
 	
-	Map &level = handler.add<Map>("level" + std::to_string(id), width, height, tileset, tiles);
+	handler.add<Map>("level" + std::to_string(id), width, height, tileset, tiles);
 }
 

@@ -24,6 +24,7 @@ class XMLFile {
 	public:
 		XMLFile() = default;
 		XMLFile(const char *filename);
+		XMLFile(const std::string &filename) : XMLFile(filename.c_str()) {}
 		XMLFile(const XMLFile &) = default;
 		XMLFile(XMLFile &&) = default;
 		

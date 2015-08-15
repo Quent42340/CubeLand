@@ -23,7 +23,7 @@
 class ResourceHandler {
 	public:
 		template<typename T, typename... Args>
-		T &add(const char *name, Args &&...args) {
+		T &add(const std::string &name, Args &&...args) {
 			if(has(name)) {
 				throw EXCEPTION("A resource of type", typeid(T).name(), "already exists with name:", name);
 			}
@@ -33,12 +33,12 @@ class ResourceHandler {
 			return get<T>(name);
 		}
 		
-		bool has(const char *name) {
+		bool has(const std::string &name) {
 			return m_resources.find(name) != m_resources.end();
 		}
 		
 		template<typename T>
-		T &get(const char *name) {
+		T &get(const std::string &name) {
 			if(!has(name)) {
 				throw EXCEPTION("Unable to find resource with name:", name);
 			}

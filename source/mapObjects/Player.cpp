@@ -18,7 +18,7 @@
 
 #include "Debug.hpp"
 
-Player::Player() : Image("graphics/player.png") {
+Player::Player() : Image("characters-player") {
 	setPosition(16, 16);
 }
 

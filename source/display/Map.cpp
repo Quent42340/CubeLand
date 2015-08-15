@@ -17,12 +17,9 @@
 
 Map *Map::currentMap = nullptr;
 
-Map::Map(u16 width, u16 height, Sprite &tileset, const std::vector<u16> &tiles) {
+Map::Map(u16 width, u16 height, Tileset &tileset, const std::vector<u16> &tiles) {
 	m_width = width;
 	m_height = height;
-	
-	m_tileWidth = tileset.frameWidth();
-	m_tileHeight = tileset.frameHeight();
 	
 	m_tiles = tiles;
 	
@@ -55,7 +52,8 @@ void Map::setTile(u16 tileX, u16 tileY, u16 tile) {
 }
 
 bool Map::inTile(float x, float y, u16 tile) {
-	return getTile(x / m_tileWidth, y / m_tileHeight) == tile;
+	return getTile(x / m_renderer.tileset().tileWidth(),
+	               y / m_renderer.tileset().tileHeight()) == tile;
 }
 
 bool Map::isPassable(float x, float y) {

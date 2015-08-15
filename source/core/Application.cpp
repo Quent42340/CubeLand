@@ -25,9 +25,9 @@ bool Application::quit = false;
 Application::Application() {
 	m_window.create(sf::VideoMode(screenWidth, screenHeight), "CubeLand", sf::Style::Close);
 	
-	ResourceHandler::getInstance().loadConfigFile<LevelLoader>("data/config/levels.xml");
 	ResourceHandler::getInstance().loadConfigFile<TextureLoader>("data/config/textures.xml");
 	ResourceHandler::getInstance().loadConfigFile<TilesetLoader>("data/config/tilesets.xml");
+	ResourceHandler::getInstance().loadConfigFile<LevelLoader>("data/config/levels.xml");
 	
 	ApplicationStateStack::getInstance().push<LevelState>();
 }
