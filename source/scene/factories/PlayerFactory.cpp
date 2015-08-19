@@ -120,12 +120,26 @@ void checkCollisions(SceneObject &player) {
 	}
 }
 
+#include "Application.hpp"
 #include "LevelState.hpp"
 
 void scrollLevel(SceneObject &player) {
-	// FIXME: À ne faire que si le player dépasse la moitié de l'écran, et à ne pas faire en bord de map
-	// À ajouter dans un collision checker
 	sf::Vector2f playerCenter = player.getPosition() + sf::Vector2f(player.get<Image>().width(), player.get<Image>().height()) / 2.0f;
-	LevelState::view.setCenter(floor(playerCenter.x), floor(playerCenter.y));
+	
+	sf::Vector2f screenHalfSize{Application::screenWidth  / 2,
+	                            Application::screenHeight / 2};
+	
+	sf::Vector2i mapSize{Map::currentMap->width()  * Map::currentMap->tileset().tileWidth(),
+	                     Map::currentMap->height() * Map::currentMap->tileset().tileHeight()};
+	
+	if(playerCenter.x > screenHalfSize.x
+	&& playerCenter.x < mapSize.x - screenHalfSize.x) {
+		LevelState::view.setCenter(floor(playerCenter.x), LevelState::view.getCenter().y);
+	}
+	
+	if(playerCenter.y > screenHalfSize.y
+	&& playerCenter.y < mapSize.y - screenHalfSize.y) {
+		LevelState::view.setCenter(LevelState::view.getCenter().x, floor(playerCenter.y));
+	}
 }
 

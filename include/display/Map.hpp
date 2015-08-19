@@ -28,6 +28,11 @@ class Map : public sf::Drawable, public sf::Transformable {
 		bool inTile(float x, float y, u16 tile);
 		bool isPassable(float x, float y);
 		
+		u16 width() const { return m_width; }
+		u16 height() const { return m_height; }
+		
+		const Tileset &tileset() const { return m_renderer.tileset(); }
+		
 		static Map *currentMap;
 		
 	private:
