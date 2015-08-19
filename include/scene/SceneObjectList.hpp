@@ -50,6 +50,9 @@ class SceneObjectList {
 		iterator begin() noexcept { return m_objects.begin(); }
 		iterator end() noexcept { return m_objects.end(); }
 		
+		const_iterator begin() const noexcept { return m_objects.begin(); }
+		const_iterator end() const noexcept { return m_objects.end(); }
+		
 		size_t size() const { return m_objects.size(); }
 		
 	private:

@@ -1,32 +1,24 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Player.hpp
+ *       Filename:  GamePadMovement.hpp
  *
  *    Description:  
  *
- *        Created:  10/08/2015 20:23:53
+ *        Created:  19/08/2015 15:47:11
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef PLAYER_HPP_
-#define PLAYER_HPP_
+#ifndef GAMEPADMOVEMENT_HPP_
+#define GAMEPADMOVEMENT_HPP_
 
-#include "IntTypes.hpp"
-#include "Image.hpp"
+#include "Movement.hpp"
 
-class Player : public Image {
+class GamePadMovement : public Movement {
 	public:
-		Player();
-		
-		void checkCollisions();
-		
-		void update();
-		
-		float x() const { return getPosition().x; }
-		float y() const { return getPosition().y; }
+		void process(SceneObject &object);
 		
 		enum class JumpState : u8 {
 			Landed,
@@ -38,10 +30,7 @@ class Player : public Image {
 		float m_speed = 0.5f;
 		float m_jumpSpeed = 3.0f;
 		
-		float m_vx = 0.0f;
-		float m_vy = 0.0f;
-		
 		JumpState m_jumpState = JumpState::Landed;
 };
 
-#endif // PLAYER_HPP_
+#endif // GAMEPADMOVEMENT_HPP_

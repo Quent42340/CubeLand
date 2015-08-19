@@ -1,4 +1,13 @@
 ===== TODO =====
-- Make map object system
+- Fix scrolling
+- Make a MapCollisionChecker
+- Improve jump
+- Add a LevelPassedState
+- Add key and door objects
 - Add speed (green) and jump (blue) objects
+- Add a LevelFailedState
+- Add a HUD for speed and jump effects
+- Add life and a HUD for it
+- Add enemies
+- Add GamePad static class (look at config file for keys in Zelda)
 

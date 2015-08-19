@@ -11,27 +11,30 @@
  *
  * =====================================================================================
  */
+#include "Application.hpp"
 #include "LevelState.hpp"
+#include "Map.hpp"
+#include "PlayerFactory.hpp"
 #include "ResourceHandler.hpp"
+
+sf::View LevelState::view{sf::FloatRect(0, 0, Application::screenWidth, Application::screenHeight)};
 
 LevelState::LevelState() {
 	Map::currentMap = &ResourceHandler::getInstance().get<Map>("level0");
+	
+	m_scene.addObject(PlayerFactory::create(48, 16));
 }
 
 void LevelState::update() {
-	m_player.update();
-	
-	// FIXME: À ne faire que si le player dépasse la moitié de l'écran, et à ne pas faire en bord de map
-	sf::Vector2f playerCenter = m_player.getPosition() + sf::Vector2f(m_player.width(), m_player.height()) / 2.0f;
-	m_view.setCenter(floor(playerCenter.x), floor(playerCenter.y));
+	m_scene.update();
 }
 
 void LevelState::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-	target.setView(m_view);
+	target.setView(view);
 	
 	target.draw(*Map::currentMap, states);
 	
-	target.draw(m_player, states);
+	target.draw(m_scene, states);
 	
 	target.setView(target.getDefaultView());
 }

@@ -18,9 +18,11 @@
 #include <memory>
 #include <typeindex>
 
+#include <SFML/Graphics/Transformable.hpp>
+
 #include "Exception.hpp"
 
-class SceneObject {
+class SceneObject : public sf::Transformable {
 	public:
 		SceneObject(const std::string &type = "null", const std::string &name = "null")
 			: m_name(name), m_type(type) {}
@@ -38,14 +40,14 @@ class SceneObject {
 		}
 		
 		template<typename T>
-		bool has() {
+		bool has() const {
 			return m_components.find(typeid(T)) != m_components.end();
 		}
 		
 		template<typename T>
-		T &get() {
+		T &get() const {
 			if(has<T>()) {
-				return *std::static_pointer_cast<T>(m_components[typeid(T)]).get();
+				return *std::static_pointer_cast<T>(m_components.at(typeid(T))).get();
 			} else {
 				throw EXCEPTION("SceneObject", (void*)this, "doesn't have a component of type:", typeid(T).name());
 			}
@@ -56,7 +58,7 @@ class SceneObject {
 			m_components.erase(typeid(T));
 		}
 		
-		void debug() {
+		void debug() const {
 			DEBUG("=== Component list of object:", (void*)this, " ===");
 			DEBUG("=== List address:", (void*)&m_components);
 			for(auto &it : m_components) {

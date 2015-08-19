@@ -14,11 +14,10 @@
 #ifndef LEVELSTATE_HPP_
 #define LEVELSTATE_HPP_
 
-#include "Application.hpp"
+#include <SFML/Graphics/View.hpp>
+
 #include "ApplicationState.hpp"
-#include "Map.hpp"
-#include "Sprite.hpp"
-#include "Player.hpp"
+#include "Scene.hpp"
 
 class LevelState : public ApplicationState {
 	public:
@@ -26,12 +25,12 @@ class LevelState : public ApplicationState {
 		
 		void update();
 		
+		static sf::View view;
+		
 	private:
 		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 		
-		Player m_player;
-		
-		sf::View m_view{sf::FloatRect(0, 0, Application::screenWidth, Application::screenHeight)};
+		Scene m_scene;
 };
 
 #endif // LEVELSTATE_HPP_
