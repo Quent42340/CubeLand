@@ -27,7 +27,7 @@ class Scene : public sf::Drawable {
 		void update();
 		
 	private:
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 		
 		void resetObject(SceneObject &object);
 		void updateObject(SceneObject &object);

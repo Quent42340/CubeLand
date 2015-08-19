@@ -13,23 +13,32 @@
  */
 #include "Application.hpp"
 #include "ApplicationStateStack.hpp"
-#include "LevelState.hpp"
+#include "Mouse.hpp"
 #include "ResourceHandler.hpp"
+#include "TitleScreenState.hpp"
 
 #include "LevelLoader.hpp"
 #include "TilesetLoader.hpp"
 #include "TextureLoader.hpp"
+
+#include "LevelState.hpp"
 
 bool Application::quit = false;
 
 Application::Application() {
 	m_window.create(sf::VideoMode(screenWidth, screenHeight), "CubeLand", sf::Style::Close);
 	
+	Mouse::setWindow(m_window);
+	
 	ResourceHandler::getInstance().loadConfigFile<TextureLoader>("data/config/textures.xml");
 	ResourceHandler::getInstance().loadConfigFile<TilesetLoader>("data/config/tilesets.xml");
 	ResourceHandler::getInstance().loadConfigFile<LevelLoader>("data/config/levels.xml");
 	
-	ApplicationStateStack::getInstance().push<LevelState>();
+	sf::Font &defaultFont = ResourceHandler::getInstance().add<sf::Font>("font-default");
+	defaultFont.loadFromFile("fonts/terminus.ttf");
+	
+	ApplicationStateStack::getInstance().push<TitleScreenState>();
+	// ApplicationStateStack::getInstance().push<LevelState>(0);
 }
 
 void Application::handleEvents() {

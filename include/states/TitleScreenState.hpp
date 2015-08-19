@@ -1,38 +1,37 @@
 /*
  * =====================================================================================
  *
- *       Filename:  LevelState.hpp
+ *       Filename:  TitleScreenState.hpp
  *
  *    Description:  
  *
- *        Created:  14/08/2015 18:03:09
+ *        Created:  19/08/2015 19:07:58
  *
  *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
  *
  * =====================================================================================
  */
-#ifndef LEVELSTATE_HPP_
-#define LEVELSTATE_HPP_
-
-#include <SFML/Graphics/View.hpp>
+#ifndef TITLESCREENSTATE_HPP_
+#define TITLESCREENSTATE_HPP_
 
 #include "ApplicationState.hpp"
-#include "Scene.hpp"
+#include "Image.hpp"
 
-class LevelState : public ApplicationState {
+class TitleScreenState : public ApplicationState {
 	public:
-		LevelState(u16 levelID);
+		TitleScreenState();
 		
 		void update();
-		
-		static sf::View view;
 		
 	private:
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 		
-		u16 m_levelID = 0;
+		sf::Font m_font;
 		
-		Scene m_scene;
+		sf::Text m_title{"CubeLand", m_font, 120};
+		
+		sf::Text m_playText{"Play", m_font, 50};
+		sf::RectangleShape m_playRect;
 };
 
-#endif // LEVELSTATE_HPP_
+#endif // TITLESCREENSTATE_HPP_

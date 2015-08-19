@@ -30,7 +30,7 @@ class MapRenderer : public sf::Drawable {
 		const Tileset &tileset() const { return *m_tileset; }
 		
 	private:
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 		
 		u16 m_mapWidth;
 		u16 m_mapHeight;

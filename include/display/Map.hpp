@@ -36,7 +36,7 @@ class Map : public sf::Drawable, public sf::Transformable {
 		static Map *currentMap;
 		
 	private:
-		virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 		
 		u16 m_width;
 		u16 m_height;

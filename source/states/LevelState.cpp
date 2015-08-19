@@ -19,10 +19,12 @@
 
 sf::View LevelState::view{sf::FloatRect(0, 0, Application::screenWidth, Application::screenHeight)};
 
-LevelState::LevelState() {
-	Map::currentMap = &ResourceHandler::getInstance().get<Map>("level0");
+LevelState::LevelState(u16 levelID) {
+	m_levelID = levelID;
 	
-	m_scene.addObject(PlayerFactory::create(48, 16));
+	Map::currentMap = &ResourceHandler::getInstance().get<Map>("level" + std::to_string(m_levelID));
+	
+	m_scene.addObject(PlayerFactory::create(2 * 16, 28 * 16));
 }
 
 void LevelState::update() {
