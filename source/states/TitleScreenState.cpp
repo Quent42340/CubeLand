@@ -13,10 +13,12 @@
  */
 #include "Application.hpp"
 #include "ApplicationStateStack.hpp"
+#include "GamePad.hpp"
 #include "Mouse.hpp"
 #include "TitleScreenState.hpp"
 
 #include "LevelState.hpp"
+#include "LevelListState.hpp"
 
 TitleScreenState::TitleScreenState() {
 	m_font.loadFromFile("fonts/terminus.ttf");
@@ -27,16 +29,17 @@ TitleScreenState::TitleScreenState() {
 	
 	m_playRect.setPosition(m_playText.getGlobalBounds().left - 32, m_playText.getGlobalBounds().top - 8);
 	m_playRect.setSize(sf::Vector2f(m_playText.getGlobalBounds().width + 64, m_playText.getGlobalBounds().height + 16));
-	m_playRect.setFillColor(sf::Color(0, 0, 0, 0));
-	m_playRect.setOutlineColor(sf::Color(255, 255, 255));
+	m_playRect.setFillColor(sf::Color::Transparent);
+	m_playRect.setOutlineColor(sf::Color::White);
 	m_playRect.setOutlineThickness(2);
 }
 
 void TitleScreenState::update() {
 	sf::FloatRect playRectHitbox{m_playRect.getPosition(), m_playRect.getSize()};
 	
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && Mouse::isInRect(playRectHitbox)) {
-		ApplicationStateStack::getInstance().push<LevelState>(0);
+	if((sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && Mouse::isInRect(playRectHitbox))
+	|| GamePad::isKeyPressedOnce(GameKey::Start)) {
+		ApplicationStateStack::getInstance().push<LevelListState>();
 	}
 }
 

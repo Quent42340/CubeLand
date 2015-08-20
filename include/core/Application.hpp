@@ -17,6 +17,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "GameClock.hpp"
+#include "KeyboardHandler.hpp"
 
 class Application {
 	public:
@@ -35,6 +36,8 @@ class Application {
 		sf::RenderWindow m_window;
 		
 		GameClock m_clock;
+		
+		KeyboardHandler m_keyboardHandler;
 };
 
 #endif // APPLICATION_HPP_

@@ -1,7 +1,9 @@
 ===== TODO =====
 - Make a title screen and a list of levels
-	o Add a TitleScreenState
 	- Add a LevelListState
+		-> Write GamePad
+			* Improve keyPressedOnce, maybe with a channel system, or using the events?
+		-> Maybe write Button, Window, SelectableWindow? (Look in Asylia)
 	- Add a LevelPassedState
 	- Add a LevelFailedState
 - Add key and door objects
@@ -12,4 +14,8 @@
 - Add life and a HUD for it
 - Add enemies
 - Add GamePad static class (look at config file for keys in Zelda)
+
+=> Make a library with the ResourceHandler, the SceneObject system, the Movement system
+   the ApplicationStateStack, the GameClock class, the GamePad class and the Application class
+	-> Call it libegdt (Easy GameDev Toolkit)
 

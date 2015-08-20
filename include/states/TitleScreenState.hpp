@@ -28,9 +28,9 @@ class TitleScreenState : public ApplicationState {
 		
 		sf::Font m_font;
 		
-		sf::Text m_title{"CubeLand", m_font, 120};
+		sf::Text m_title{"CubeLand", m_font, 128};
 		
-		sf::Text m_playText{"Play", m_font, 50};
+		sf::Text m_playText{"Play", m_font, 48};
 		sf::RectangleShape m_playRect;
 };
 

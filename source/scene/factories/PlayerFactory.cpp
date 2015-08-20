@@ -11,6 +11,8 @@
  *
  * =====================================================================================
  */
+#include <cmath>
+
 #include "GamePadMovement.hpp"
 #include "Image.hpp"
 #include "PlayerFactory.hpp"

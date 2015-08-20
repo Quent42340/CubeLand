@@ -22,6 +22,8 @@ class LevelLoader : public ResourceLoader {
 		void load(const char *xmlFilename, ResourceHandler &handler);
 		
 		void loadLevel(u16 id, Tileset &tileset, ResourceHandler &handler);
+		
+		static u16 levelsLoaded;
 };
 
 #endif // LEVELLOADER_HPP_

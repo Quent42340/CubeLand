@@ -13,6 +13,7 @@
  */
 #include "Application.hpp"
 #include "ApplicationStateStack.hpp"
+#include "GamePad.hpp"
 #include "Mouse.hpp"
 #include "ResourceHandler.hpp"
 #include "TitleScreenState.hpp"
@@ -22,11 +23,13 @@
 #include "TextureLoader.hpp"
 
 #include "LevelState.hpp"
+#include "LevelListState.hpp"
 
 bool Application::quit = false;
 
 Application::Application() {
 	m_window.create(sf::VideoMode(screenWidth, screenHeight), "CubeLand", sf::Style::Close);
+	m_window.setKeyRepeatEnabled(false);
 	
 	Mouse::setWindow(m_window);
 	
@@ -34,19 +37,30 @@ Application::Application() {
 	ResourceHandler::getInstance().loadConfigFile<TilesetLoader>("data/config/tilesets.xml");
 	ResourceHandler::getInstance().loadConfigFile<LevelLoader>("data/config/levels.xml");
 	
+	GamePad::init(m_keyboardHandler);
+	
 	sf::Font &defaultFont = ResourceHandler::getInstance().add<sf::Font>("font-default");
 	defaultFont.loadFromFile("fonts/terminus.ttf");
 	
 	ApplicationStateStack::getInstance().push<TitleScreenState>();
+	// ApplicationStateStack::getInstance().push<LevelListState>();
 	// ApplicationStateStack::getInstance().push<LevelState>(0);
 }
 
 void Application::handleEvents() {
+	m_keyboardHandler.resetState();
+	
 	sf::Event event;
 	while(m_window.pollEvent(event)) {
 		if(event.type == sf::Event::Closed) {
 			m_window.close();
 		}
+		
+		if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+			m_window.close();
+		}
+		
+		m_keyboardHandler.updateState(event);
 	}
 }
 

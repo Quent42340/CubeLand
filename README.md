@@ -8,7 +8,7 @@
 
 ## Keys
 
-- Jump: <kbd>W</kbd> (or <kbd>Z</kbd> on QWERTY keyboards)
+- Jump: <kbd>W</kbd>
 - Move: <kbd>&larr;</kbd> <kbd>&uarr;</kbd> <kbd>&darr;</kbd> <kbd>&rarr;</kbd>
 
 ## How to compile

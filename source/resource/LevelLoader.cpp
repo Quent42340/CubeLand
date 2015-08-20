@@ -14,6 +14,8 @@
 #include "LevelLoader.hpp"
 #include "Map.hpp"
 
+u16 LevelLoader::levelsLoaded = 0;
+
 void LevelLoader::load(const char *xmlFilename, ResourceHandler &handler) {
 	XMLFile doc(xmlFilename);
 	
@@ -24,6 +26,8 @@ void LevelLoader::load(const char *xmlFilename, ResourceHandler &handler) {
 		Tileset &tileset = handler.get<Tileset>(levelElement->Attribute("tileset"));
 		
 		loadLevel(id, tileset, handler);
+		
+		levelsLoaded++;
 		
 		levelElement = levelElement->NextSiblingElement("level");
 	}
