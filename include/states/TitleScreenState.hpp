@@ -15,6 +15,7 @@
 #define TITLESCREENSTATE_HPP_
 
 #include "ApplicationState.hpp"
+#include "Button.hpp"
 #include "Image.hpp"
 
 class TitleScreenState : public ApplicationState {
@@ -30,8 +31,7 @@ class TitleScreenState : public ApplicationState {
 		
 		sf::Text m_title{"CubeLand", m_font, 128};
 		
-		sf::Text m_playText{"Play", m_font, 48};
-		sf::RectangleShape m_playRect;
+		Button m_playButton{"Play", 48};
 };
 
 #endif // TITLESCREENSTATE_HPP_

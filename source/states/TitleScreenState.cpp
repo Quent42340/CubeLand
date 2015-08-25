@@ -25,28 +25,24 @@ TitleScreenState::TitleScreenState() {
 	
 	m_title.setPosition(Application::screenWidth / 2 - m_title.getGlobalBounds().width / 2 - m_title.getLocalBounds().left, 40);
 	
-	m_playText.setPosition(Application::screenWidth / 2 - m_playText.getGlobalBounds().width / 2 - m_playText.getLocalBounds().left, 275);
+	m_playButton.setAction([]{
+		ApplicationStateStack::getInstance().push<LevelListState>();
+	});
 	
-	m_playRect.setPosition(m_playText.getGlobalBounds().left - 32, m_playText.getGlobalBounds().top - 8);
-	m_playRect.setSize(sf::Vector2f(m_playText.getGlobalBounds().width + 64, m_playText.getGlobalBounds().height + 16));
-	m_playRect.setFillColor(sf::Color::Transparent);
-	m_playRect.setOutlineColor(sf::Color::White);
-	m_playRect.setOutlineThickness(2);
+	m_playButton.setPosition(Application::screenWidth  / 2 - m_playButton.width()  / 2, 275);
 }
 
 void TitleScreenState::update() {
-	sf::FloatRect playRectHitbox{m_playRect.getPosition(), m_playRect.getSize()};
+	m_playButton.update();
 	
-	if((sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && Mouse::isInRect(playRectHitbox))
-	|| GamePad::isKeyPressedOnce(GameKey::Start)) {
-		ApplicationStateStack::getInstance().push<LevelListState>();
+	if(GamePad::isKeyPressedOnce(GameKey::Start)) {
+		m_playButton.action();
 	}
 }
 
 void TitleScreenState::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	target.draw(m_title, states);
 	
-	target.draw(m_playText, states);
-	target.draw(m_playRect, states);
+	target.draw(m_playButton, states);
 }
 

@@ -1,11 +1,7 @@
 ===== TODO =====
-- Make a title screen and a list of levels
-	- Add a LevelListState
-		-> Write GamePad
-			* Improve keyPressedOnce, maybe with a channel system, or using the events?
-		-> Maybe write Button, Window, SelectableWindow? (Look in Asylia)
-	- Add a LevelPassedState
-	- Add a LevelFailedState
+- Add LevelPassedState
+- Add LevelFailedState
+- Add ButtonList class for LevelListState
 - Add key and door objects
 - Add speed (green) and jump (blue) objects
 - Add a HUD for speed and jump effects
