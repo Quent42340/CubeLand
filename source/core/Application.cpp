@@ -22,6 +22,7 @@
 #include "TilesetLoader.hpp"
 #include "TextureLoader.hpp"
 
+#include "LevelEndState.hpp"
 #include "LevelState.hpp"
 #include "LevelListState.hpp"
 

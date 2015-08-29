@@ -29,7 +29,7 @@ TitleScreenState::TitleScreenState() {
 		ApplicationStateStack::getInstance().push<LevelListState>();
 	});
 	
-	m_playButton.setPosition(Application::screenWidth  / 2 - m_playButton.width()  / 2, 275);
+	m_playButton.setPosition(Application::screenWidth / 2 - m_playButton.width() / 2, 275);
 }
 
 void TitleScreenState::update() {
