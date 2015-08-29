@@ -25,6 +25,10 @@ class HitboxComponent {
 		HitboxComponent(s8 currentHitboxID = 0)
 			: m_currentHitboxID(currentHitboxID) {}
 		
+		HitboxComponent(s16 x, s16 y, u16 width, u16 height) : HitboxComponent(0) {
+			addHitbox(x, y, width, height);
+		}
+		
 		void addHitbox(s16 x, s16 y, u16 width, u16 height) {
 			m_hitboxes.emplace_back(x, y, width, height);
 		}

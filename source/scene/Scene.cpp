@@ -11,24 +11,38 @@
  *
  * =====================================================================================
  */
+#include "Scene.hpp"
+
 #include "BehaviourSystem.hpp"
 #include "DrawingSystem.hpp"
+#include "LockSystem.hpp"
 #include "MovementSystem.hpp"
-#include "Scene.hpp"
+
+Scene *Scene::currentScene = nullptr;
+
+SceneObject *Scene::player = nullptr;
 
 SceneObject &Scene::addObject(SceneObject &&object) {
 	return m_objects.addObject(std::move(object));
 }
 
 void Scene::reset() {
+	resetObject(*player);
+	
 	for(auto &object : m_objects) resetObject(object);
 }
 
 void Scene::update() {
+	updateObject(*player);
+	
 	for(auto &object : m_objects) updateObject(object);
+	
+	LockSystem::update(m_objects);
 }
 
 void Scene::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+	drawObject(*player, target, states);
+	
 	for(const auto &object : m_objects) drawObject(object, target, states);
 }
 

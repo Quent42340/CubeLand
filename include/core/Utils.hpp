@@ -23,8 +23,9 @@ sf::Rect<T> operator+(const sf::Rect<T> &rect, const sf::Vector2<T> &vec) {
 }
 
 template<typename T>
-sf::Rect<T> operator+=(const sf::Rect<T> &rect, const sf::Vector2<T> &vec) {
-	return rect + vec;
+sf::Rect<T> operator+=(sf::Rect<T> &rect, const sf::Vector2<T> &vec) {
+	rect = rect + vec;
+	return rect;
 }
 
 #endif // UTILS_HPP_

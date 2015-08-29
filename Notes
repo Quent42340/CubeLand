@@ -1,5 +1,5 @@
 ===== TODO =====
-- Add key and door objects
+- Add door object
 - Add ButtonList class for LevelListState
 - Add speed (green) and jump (blue) objects
 - Add a HUD for speed and jump effects

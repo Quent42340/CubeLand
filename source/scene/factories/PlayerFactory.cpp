@@ -13,12 +13,15 @@
  */
 #include <cmath>
 
+#include "CollisionSystem.hpp"
 #include "GamePadMovement.hpp"
 #include "Image.hpp"
 #include "PlayerFactory.hpp"
+#include "Scene.hpp"
 
 #include "BehaviourComponent.hpp"
 #include "CollisionComponent.hpp"
+#include "HitboxComponent.hpp"
 #include "MovementComponent.hpp"
 
 void checkCollisions(SceneObject &player);
@@ -26,12 +29,21 @@ void scrollLevel(SceneObject &player);
 
 SceneObject PlayerFactory::create(u16 x, u16 y) {
 	SceneObject player;
-	player.setPosition(x, y);
+	player.set<HitboxComponent>(0, 0, 16, 16);
 	player.set<Image>("characters-player");
-	player.set<MovementComponent>(new GamePadMovement());
+	player.set<MovementComponent>(new GamePadMovement);
+	player.setPosition(x, y);
 	
 	auto &collisionComponent = player.set<CollisionComponent>();
 	collisionComponent.addChecker(&checkCollisions);
+	
+	collisionComponent.addChecker([&](SceneObject &object) {
+		for(SceneObject &object2 : Scene::currentScene->objects()) {
+			if(&object != &object2) {
+				CollisionSystem::checkCollision(object, object2);
+			}
+		}
+	});
 	
 	auto &behaviourComponent = player.set<BehaviourComponent>();
 	behaviourComponent.addAction("scrollLevel", &scrollLevel);

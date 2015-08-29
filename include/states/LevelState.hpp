@@ -33,6 +33,8 @@ class LevelState : public ApplicationState {
 		u16 m_levelID = 0;
 		
 		Scene m_scene;
+		
+		SceneObject m_player;
 };
 
 #endif // LEVELSTATE_HPP_

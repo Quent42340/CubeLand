@@ -26,6 +26,14 @@ class Scene : public sf::Drawable {
 		void reset();
 		void update();
 		
+		SceneObjectList &objects() { return m_objects; }
+		
+		static bool isPlayer(const SceneObject &object) { return player == &object; }
+		
+		static Scene *currentScene;
+		
+		static SceneObject *player;
+		
 	private:
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 		

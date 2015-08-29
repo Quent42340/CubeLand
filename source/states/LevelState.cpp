@@ -17,6 +17,8 @@
 #include "PlayerFactory.hpp"
 #include "ResourceHandler.hpp"
 
+#include "KeyFactory.hpp"
+
 sf::View LevelState::view{sf::FloatRect(0, 0, Application::screenWidth, Application::screenHeight)};
 
 LevelState::LevelState(u16 levelID) {
@@ -24,7 +26,13 @@ LevelState::LevelState(u16 levelID) {
 	
 	Map::currentMap = &ResourceHandler::getInstance().get<Map>("level" + std::to_string(m_levelID));
 	
-	m_scene.addObject(PlayerFactory::create(2 * 16, 28 * 16));
+	m_player = PlayerFactory::create(2 * 16, 28 * 16);
+	
+	m_scene.addObject(KeyFactory::create(78, 24, 0));
+	
+	Scene::player = &m_player;
+	
+	Scene::currentScene = &m_scene;
 }
 
 void LevelState::update() {
