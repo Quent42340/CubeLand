@@ -1,15 +1,60 @@
-===== TODO =====
-- Add door object
-- Add ButtonList class for LevelListState
-- Add speed (green) and jump (blue) objects
-- Add a HUD for speed and jump effects
-- Make a MapCollisionChecker
-- Improve jump
-- Add life and a HUD for it
-- Add enemies
-- Add GamePad static class (look at config file for keys in Zelda)
+===================================== TODO =====================================
+
+=> Add missing core objects
+	- Add spike object
+	- Add object autocreation from maps (SceneObjectLoader)
+
+=> Improve LevelListState code
+	- Add ButtonList class for LevelListState
+
+=> Add gameplay elements
+	- Add speed (green) and jump (blue) objects
+		-> Add the corresponding factories
+		-> Add a HUD for speed and jump effects
+
+=> Make player's map collision checker reusable for any entity
+	- Write a MapCollisionChecker
+
+=> Add enemies
+	- Add an enemy entity
+	- Add life and a HUD for it
 
 => Make a library with the ResourceHandler, the SceneObject system, the Movement system
    the ApplicationStateStack, the GameClock class, the GamePad class and the Application class
-	-> Call it libegdt (Easy GameDev Toolkit)
+	- Call it libegdt (Easy GameDev Toolkit)
+		~ Try to do it with, in mind, a possible choice between SFML|SDL|SDL+GL
+	- Use it in CubeLand and Zelda
+		-> It will help to maintain core engine code in both games
 
+================================================================================
+
+- Comments that were at the beginning of player's collision checker:
+	-> It could fix hitbox problems in Zelda
+
+// {12, 8,12,13},
+// { 4, 8, 4,13},
+// { 5, 5,10, 5},
+// { 5,15,10,15}
+// => (5, 5, 5, 10)
+// => (4, 8, 8, 5)
+// ................
+// ................
+// ................
+// ................
+// ................
+// ................
+// .....******.....
+// .....*....*.....
+// ....++++++++....
+// ....+*....*+....
+// ....+*....*+....
+// ....+*....*+....
+// ....++++++++....
+// .....*....*.....
+// .....******.....
+// ................
+// => (5, 8, 5, 6)
+// {10, 8,10,14},
+// { 5, 8, 5,14},
+// { 5, 8,10, 8},
+// { 5,14,10,14}

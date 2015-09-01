@@ -39,9 +39,14 @@ Button::Button(const char *text, u8 fontSize) {
 void Button::update() {
 	sf::FloatRect hitbox{getPosition().x, getPosition().y, width(), height()};
 	
-	if(m_isActivated && Mouse::isInRect(hitbox)
-	&& sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-		m_action();
+	if(Mouse::isInRect(hitbox)) {
+		m_rect.setFillColor(sf::Color(100, 100, 100, 75));
+		
+		if(m_isActivated && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+			m_action();
+		}
+	} else {
+		m_rect.setFillColor(sf::Color::Black);
 	}
 }
 

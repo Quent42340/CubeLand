@@ -13,9 +13,12 @@
  */
 #include <cmath>
 
+#include "Application.hpp"
 #include "CollisionSystem.hpp"
 #include "GamePadMovement.hpp"
 #include "Image.hpp"
+#include "LevelState.hpp"
+#include "Map.hpp"
 #include "PlayerFactory.hpp"
 #include "Scene.hpp"
 
@@ -51,36 +54,7 @@ SceneObject PlayerFactory::create(u16 x, u16 y) {
 	return player;
 }
 
-#include "Map.hpp"
-
 void checkCollisions(SceneObject &player) {
-	// {12, 8,12,13},
-	// { 4, 8, 4,13},
-	// { 5, 5,10, 5},
-	// { 5,15,10,15}
-	// => (5, 5, 5, 10)
-	// => (4, 8, 8, 5)
-	// ................
-	// ................
-	// ................
-	// ................
-	// ................
-	// ................
-	// .....******.....
-	// .....*....*.....
-	// ....++++++++....
-	// ....+*....*+....
-	// ....+*....*+....
-	// ....+*....*+....
-	// ....++++++++....
-	// .....*....*.....
-	// .....******.....
-	// ................
-	// => (5, 8, 5, 6)
-	// {10, 8,10,14},
-	// { 5, 8, 5,14},
-	// { 5, 8,10, 8},
-	// { 5,14,10,14}
 	auto &movement = player.get<MovementComponent>();
 	
 	sf::FloatRect hitbox(0, 0, player.get<Image>().width(), player.get<Image>().height());
@@ -91,32 +65,29 @@ void checkCollisions(SceneObject &player) {
 	float hitboxX2 = hitboxX1 + hitbox.width - 1.0f;
 	float hitboxY2 = hitboxY1 + hitbox.height - 1.0f;
 	
-	float collisionMatrix[4][4] = {
-		{hitboxX2, hitboxY1, hitboxX2, hitboxY2},
-		{hitboxX1, hitboxY1, hitboxX1, hitboxY2},
-		{hitboxX1, hitboxY1, hitboxX2, hitboxY1},
-		{hitboxX1, hitboxY2, hitboxX2, hitboxY2}
+	sf::Vector2f sides[4][4] = {
+		{{hitboxX2, hitboxY1}, {hitboxX2, hitboxY2}},
+		{{hitboxX1, hitboxY1}, {hitboxX1, hitboxY2}},
+		{{hitboxX1, hitboxY1}, {hitboxX2, hitboxY1}},
+		{{hitboxX1, hitboxY2}, {hitboxX2, hitboxY2}}
 	};
 	
 	for(u8 i = 0 ; i < 4 ; i++) {
 		bool test;
 		
-		if(i == 0) {
-			test = movement.v.x > 0;
-		}
-		else if(i == 1) {
-			test = movement.v.x < 0;
-		}
-		else if(i == 2) {
-			test = movement.v.y < 0;
-		}
-		else if(i == 3) {
-			test = movement.v.y > 0;
+		switch(i) {
+			case 0: test = movement.v.x > 0; break;
+			case 1: test = movement.v.x < 0; break;
+			case 2: test = movement.v.y < 0; break;
+			case 3: test = movement.v.y > 0; break;
 		}
 		
+		float vx = (i < 2) ? movement.v.x : 0.0f;
+		float vy = (i > 1) ? movement.v.y : 0.0f;
+		
 		if(test
-		&& (!Map::currentMap->isPassable(collisionMatrix[i][0] + ((i < 2) ? movement.v.x : 0.0f), ceil(collisionMatrix[i][1] + ((i > 1) ? movement.v.y : 0.0f)))
-		 || !Map::currentMap->isPassable(collisionMatrix[i][2] + ((i < 2) ? movement.v.x : 0.0f), ceil(collisionMatrix[i][3] + ((i > 1) ? movement.v.y : 0.0f))))) {
+		&& (!Map::currentMap->isPassable(sides[i][0].x + vx, ceil(sides[i][0].y + vy))
+		 || !Map::currentMap->isPassable(sides[i][1].x + vx, ceil(sides[i][1].y + vy)))) {
 			if(i < 2) {
 				movement.v.x = 0;
 				
@@ -133,9 +104,6 @@ void checkCollisions(SceneObject &player) {
 		}
 	}
 }
-
-#include "Application.hpp"
-#include "LevelState.hpp"
 
 void scrollLevel(SceneObject &player) {
 	sf::Vector2f playerCenter = player.getPosition() + sf::Vector2f(player.get<Image>().width(), player.get<Image>().height()) / 2.0f;

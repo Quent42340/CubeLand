@@ -17,6 +17,7 @@
 #include "PlayerFactory.hpp"
 #include "ResourceHandler.hpp"
 
+#include "DoorFactory.hpp"
 #include "KeyFactory.hpp"
 
 sf::View LevelState::view{sf::FloatRect(0, 0, Application::screenWidth, Application::screenHeight)};
@@ -29,6 +30,7 @@ LevelState::LevelState(u16 levelID) {
 	m_player = PlayerFactory::create(2 * 16, 28 * 16);
 	
 	m_scene.addObject(KeyFactory::create(78, 24, 0));
+	m_scene.addObject(DoorFactory::create(78, 1, 0));
 	
 	Scene::player = &m_player;
 	

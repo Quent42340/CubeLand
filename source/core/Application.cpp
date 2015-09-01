@@ -43,9 +43,9 @@ Application::Application() {
 	sf::Font &defaultFont = ResourceHandler::getInstance().add<sf::Font>("font-default");
 	defaultFont.loadFromFile("fonts/terminus.ttf");
 	
-	// ApplicationStateStack::getInstance().push<TitleScreenState>();
+	ApplicationStateStack::getInstance().push<TitleScreenState>();
 	// ApplicationStateStack::getInstance().push<LevelListState>();
-	ApplicationStateStack::getInstance().push<LevelState>(0);
+	// ApplicationStateStack::getInstance().push<LevelState>(0);
 }
 
 void Application::handleEvents() {

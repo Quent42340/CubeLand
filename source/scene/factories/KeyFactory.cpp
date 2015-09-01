@@ -12,12 +12,14 @@
  * =====================================================================================
  */
 #include "KeyFactory.hpp"
+#include "Map.hpp"
+#include "Scene.hpp"
 
 #include "CollisionComponent.hpp"
 #include "HitboxComponent.hpp"
 #include "LockComponent.hpp"
 
-void keyAction(SceneObject &key, SceneObject &object, bool inCollision);
+void keyAction(SceneObject &key, SceneObject &object, bool isInCollision);
 
 SceneObject KeyFactory::create(u16 tileX, u16 tileY, u16 lockID) {
 	SceneObject key;
@@ -31,14 +33,9 @@ SceneObject KeyFactory::create(u16 tileX, u16 tileY, u16 lockID) {
 	return key;
 }
 
-#include "Map.hpp"
-#include "Scene.hpp"
-
-void keyAction(SceneObject &key, SceneObject &object, bool inCollision) {
-	if(inCollision && Scene::isPlayer(object)) {
+void keyAction(SceneObject &key, SceneObject &object, bool isInCollision) {
+	if(isInCollision && Scene::isPlayer(object)) {
 		key.get<LockComponent>().unlock();
-		
-		DEBUG("Collision!");
 		
 		Map::currentMap->setTile(key.getPosition().x / 16, key.getPosition().y / 16, 0);
 	}
