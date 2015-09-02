@@ -29,7 +29,7 @@ class LevelEndState : public ApplicationState {
 	private:
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 		
-		Button m_okButton{"OK", 48};
+		Button m_okButton{"Back to level list", 40};
 		
 		bool m_isLevelPassed;
 		

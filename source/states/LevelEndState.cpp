@@ -29,12 +29,17 @@ LevelEndState::LevelEndState(ApplicationState *parent, bool isLevelPassed) : App
 	
 	m_okButton.setPosition(Application::screenWidth / 2 - m_okButton.width() / 2, 275);
 	
-	m_rect.setFillColor(sf::Color(0, 0, 0, 127));
+	if(isLevelPassed) {
+		m_rect.setFillColor(sf::Color(0, 0, 0, 127));
+	} else {
+		m_rect.setFillColor(sf::Color(63, 0, 0, 127));
+	}
+	
 	m_rect.setSize(sf::Vector2f(Application::screenWidth, Application::screenHeight));
 	
 	m_text.setCharacterSize(80);
 	m_text.setFont(ResourceHandler::getInstance().get<sf::Font>("font-default"));
-	m_text.setString((m_isLevelPassed) ? "Level passed!" : "Fail!");
+	m_text.setString((m_isLevelPassed) ? "Level passed!" : "Failed!");
 	
 	sf::FloatRect textRect = m_text.getLocalBounds();
 	m_text.setOrigin(textRect.left + textRect.width  / 2,

@@ -19,6 +19,7 @@
 
 #include "DoorFactory.hpp"
 #include "KeyFactory.hpp"
+#include "SpikeFactory.hpp"
 
 sf::View LevelState::view{sf::FloatRect(0, 0, Application::screenWidth, Application::screenHeight)};
 
@@ -31,6 +32,12 @@ LevelState::LevelState(u16 levelID) {
 	
 	m_scene.addObject(KeyFactory::create(78, 24, 0));
 	m_scene.addObject(DoorFactory::create(78, 1, 0));
+	
+	m_scene.addObject(SpikeFactory::create(14, 28));
+	m_scene.addObject(SpikeFactory::create(15, 28));
+	m_scene.addObject(SpikeFactory::create(16, 28));
+	m_scene.addObject(SpikeFactory::create(17, 28));
+	m_scene.addObject(SpikeFactory::create(18, 28));
 	
 	Scene::player = &m_player;
 	

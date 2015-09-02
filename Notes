@@ -1,7 +1,6 @@
 ===================================== TODO =====================================
 
 => Add missing core objects
-	- Add spike object
 	- Add object autocreation from maps (SceneObjectLoader)
 
 => Improve LevelListState code
