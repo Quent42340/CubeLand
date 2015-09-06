@@ -17,7 +17,7 @@
 #include <SFML/Graphics/View.hpp>
 
 #include "ApplicationState.hpp"
-#include "Scene.hpp"
+#include "SceneObject.hpp"
 
 class LevelState : public ApplicationState {
 	public:
@@ -31,8 +31,6 @@ class LevelState : public ApplicationState {
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 		
 		u16 m_levelID = 0;
-		
-		Scene m_scene;
 		
 		SceneObject m_player;
 };

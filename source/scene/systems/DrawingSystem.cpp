@@ -11,13 +11,8 @@
  *
  * =====================================================================================
  */
-#include <SFML/Graphics/RectangleShape.hpp>
-
 #include "DrawingSystem.hpp"
-#include "GameClock.hpp"
 #include "Image.hpp"
-
-#include "HitboxComponent.hpp"
 
 void DrawingSystem::draw(const SceneObject &object, sf::RenderTarget &target, sf::RenderStates states) {
 	states.transform *= object.getTransform();

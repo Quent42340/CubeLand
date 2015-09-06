@@ -13,6 +13,8 @@
  */
 #include "LevelLoader.hpp"
 #include "Map.hpp"
+#include "Scene.hpp"
+#include "SceneObjectLoader.hpp"
 
 u16 LevelLoader::levelsLoaded = 0;
 
@@ -41,12 +43,23 @@ void LevelLoader::loadLevel(u16 id, Tileset &tileset, ResourceHandler &handler) 
 	u16 width = mapElement->IntAttribute("width");
 	u16 height = mapElement->IntAttribute("height");
 	
+	Scene &scene = handler.add<Scene>("level" + std::to_string(id) + "-scene");
+	
+	SceneObjectLoader::loadObjectsFromLevelID(scene, id);
+	
 	std::vector<u16> tiles;
 	XMLElement *tileElement = mapElement->FirstChildElement("layer")->FirstChildElement("data")->FirstChildElement("tile");
 	while(tileElement) {
+		u16 tileX = tiles.size() % width;
+		u16 tileY = tiles.size() / width;
+		
 		s16 tileID = tileElement->IntAttribute("gid") - 1;
 		
-		tiles.push_back((tileID >= 0) ? tileID : 0);
+		tileID = (tileID >= 0) ? tileID : 0;
+		
+		tiles.push_back(tileID);
+		
+		// SceneObjectLoader::loadObjectFromTile(scene, tileX, tileY, tileID);
 		
 		tileElement = tileElement->NextSiblingElement("tile");
 	}

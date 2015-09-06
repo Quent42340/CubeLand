@@ -34,10 +34,10 @@ class Button : public sf::Drawable, public sf::Transformable {
 		void enable() { m_isActivated = true; }
 		void disable() { m_isActivated = false; }
 		
-		void setAction(const Action &action) { m_action = action; }
-		
 		float width() const { return m_rect.getSize().x + 4; }
 		float height() const { return m_rect.getSize().y + 4; }
+		
+		void setAction(const Action &action) { m_action = action; }
 		
 	private:
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

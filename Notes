@@ -2,6 +2,14 @@
 
 => Add missing core objects
 	- Add object autocreation from maps (SceneObjectLoader)
+		-> Performance problems
+
+=> Make a library with the ResourceHandler, the SceneObject system, the Movement system
+   the ApplicationStateStack, the GameClock class, the GamePad class and the Application class
+	- Call it libegdt (Easy GameDev Toolkit)
+		~ Try to do it with, in mind, a possible choice between SFML|SDL|SDL+GL
+	- Use it in CubeLand and Zelda
+		-> It will help to maintain core engine code in both games
 
 => Improve LevelListState code
 	- Add ButtonList class for LevelListState
@@ -18,16 +26,14 @@
 	- Add an enemy entity
 	- Add life and a HUD for it
 
-=> Make a library with the ResourceHandler, the SceneObject system, the Movement system
-   the ApplicationStateStack, the GameClock class, the GamePad class and the Application class
-	- Call it libegdt (Easy GameDev Toolkit)
-		~ Try to do it with, in mind, a possible choice between SFML|SDL|SDL+GL
-	- Use it in CubeLand and Zelda
-		-> It will help to maintain core engine code in both games
+==================================== ISSUES ====================================
+
+=> If you take the key and loose the level, the LockComponent, which is still
+   loaded, don't reset and stay unlocked...
 
 ================================================================================
 
-- Comments that were at the beginning of player's collision checker:
+- These comments were at the beginning of player's collision checker:
 	-> It could fix hitbox problems in Zelda
 
 // {12, 8,12,13},

@@ -16,36 +16,32 @@
 #include "Map.hpp"
 #include "PlayerFactory.hpp"
 #include "ResourceHandler.hpp"
+#include "Scene.hpp"
 
 #include "DoorFactory.hpp"
 #include "KeyFactory.hpp"
-#include "SpikeFactory.hpp"
 
 sf::View LevelState::view{sf::FloatRect(0, 0, Application::screenWidth, Application::screenHeight)};
 
 LevelState::LevelState(u16 levelID) {
 	m_levelID = levelID;
 	
+	view.reset(sf::FloatRect(0, 0, Application::screenWidth, Application::screenHeight));
+	
 	Map::currentMap = &ResourceHandler::getInstance().get<Map>("level" + std::to_string(m_levelID));
 	
 	m_player = PlayerFactory::create(2 * 16, 28 * 16);
 	
-	m_scene.addObject(KeyFactory::create(78, 24, 0));
-	m_scene.addObject(DoorFactory::create(78, 1, 0));
-	
-	m_scene.addObject(SpikeFactory::create(14, 28));
-	m_scene.addObject(SpikeFactory::create(15, 28));
-	m_scene.addObject(SpikeFactory::create(16, 28));
-	m_scene.addObject(SpikeFactory::create(17, 28));
-	m_scene.addObject(SpikeFactory::create(18, 28));
-	
 	Scene::player = &m_player;
 	
-	Scene::currentScene = &m_scene;
+	Scene::currentScene = &ResourceHandler::getInstance().get<Scene>("level" + std::to_string(m_levelID) + "-scene");
+	
+	Scene::currentScene->addObject(KeyFactory::create(78, 24, 0));
+	Scene::currentScene->addObject(DoorFactory::create(78, 1, 0));
 }
 
 void LevelState::update() {
-	m_scene.update();
+	Scene::currentScene->update();
 }
 
 void LevelState::draw(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -53,7 +49,7 @@ void LevelState::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	
 	target.draw(*Map::currentMap, states);
 	
-	target.draw(m_scene, states);
+	target.draw(*Scene::currentScene, states);
 	
 	target.setView(target.getDefaultView());
 }
