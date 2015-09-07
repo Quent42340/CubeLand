@@ -2,26 +2,20 @@
 # CMakeLists.txt
 # By gnidmoo <gnidmoo@gmail.com>
 #------------------------------------------------------------------------------
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 
 project(CubeLand)
 
 #------------------------------------------------------------------------------
 # Get source files
 #------------------------------------------------------------------------------
-file(GLOB_RECURSE SOURCE_FILES source/*.cpp external/*.cpp)
-file(GLOB_RECURSE HEADER_FILES include/*.hpp external/*.hpp)
+file(GLOB_RECURSE SOURCE_FILES source/*.cpp)
+file(GLOB_RECURSE HEADER_FILES include/*.hpp external/*/*/*/*.hpp)
 
 foreach(HEADER_FILE ${HEADER_FILES})
 	get_filename_component(HEADER_DIRECTORY ${HEADER_FILE} DIRECTORY)
 	include_directories(${HEADER_DIRECTORY})
 endforeach(HEADER_FILE)
-
-#------------------------------------------------------------------------------
-# Add executable
-#------------------------------------------------------------------------------
-add_executable(${CMAKE_PROJECT_NAME}
-               ${SOURCE_FILES})
 
 #------------------------------------------------------------------------------
 # Compiler flags
@@ -45,8 +39,29 @@ find_package(SFML COMPONENTS graphics system window)
 include_directories(${SFML_INCLUDE_DIRS})
 
 #------------------------------------------------------------------------------
+# - libegdt
+#------------------------------------------------------------------------------
+include(ExternalProject)
+
+ExternalProject_Add(libegdt
+					PREFIX external/libegdt
+					GIT_REPOSITORY http://github.com/Quent42340/libegdt.git
+					INSTALL_COMMAND "")
+
+link_directories(external/libegdt/src/libegdt-build)
+
+#------------------------------------------------------------------------------
+# Add executable
+#------------------------------------------------------------------------------
+add_executable(${CMAKE_PROJECT_NAME}
+               ${SOURCE_FILES})
+
+add_dependencies(${CMAKE_PROJECT_NAME} libegdt)
+
+#------------------------------------------------------------------------------
 # Link options
 #------------------------------------------------------------------------------
 target_link_libraries(${CMAKE_PROJECT_NAME}
-					  ${SFML_LIBRARIES})
+					  ${SFML_LIBRARIES}
+					  egdt)
 
