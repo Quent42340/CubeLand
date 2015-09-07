@@ -1,9 +1,5 @@
 ===================================== TODO =====================================
 
-=> Add missing core objects
-	- Add object autocreation from maps (SceneObjectLoader)
-		-> Performance problems
-
 => Make a library with the ResourceHandler, the SceneObject system, the Movement system
    the ApplicationStateStack, the GameClock class, the GamePad class and the Application class
 	- Call it libegdt (Easy GameDev Toolkit)

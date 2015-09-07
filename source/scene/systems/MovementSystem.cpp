@@ -24,15 +24,13 @@ void MovementSystem::process(SceneObject &object) {
 		
 		movement.isBlocked.x = false;
 		movement.isBlocked.y = false;
-	}
-	
-	if(object.has<CollisionComponent>()) {
-		object.get<CollisionComponent>().checkCollisions(object);
-	}
-	
-	if(object.has<MovementComponent>()) {
-		auto &movement = object.get<MovementComponent>();
-		movement.isMoving = (movement.v.x || movement.v.y) ? true : false;
+		
+		if((movement.v.x || movement.v.y)
+		&& object.has<CollisionComponent>()) {
+			object.get<CollisionComponent>().checkCollisions(object);
+		}
+		
+		movement.isMoving = movement.v.x || movement.v.y;
 		
 		object.move(movement.v);
 	}

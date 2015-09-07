@@ -35,35 +35,38 @@ class SceneObject : public sf::Transformable {
 		
 		template<typename T, typename... Args>
 		T &set(Args &&...args) {
-			m_components[typeid(T)] = std::make_shared<T>(std::forward<Args>(args)...);
+			m_components[typeid(T).hash_code()] = std::make_shared<T>(std::forward<Args>(args)...);
 			return get<T>();
 		}
 		
 		template<typename T>
 		bool has() const {
-			return m_components.find(typeid(T)) != m_components.end();
+			return m_components.count(typeid(T).hash_code()) == 1;
 		}
 		
 		template<typename T>
 		T &get() const {
-			if(has<T>()) {
-				return *std::static_pointer_cast<T>(m_components.at(typeid(T))).get();
-			} else {
+			auto it = m_components.find(typeid(T).hash_code());
+			if(it == m_components.end()) {
 				throw EXCEPTION("SceneObject", (void*)this, "doesn't have a component of type:", typeid(T).name());
 			}
+			
+			return *std::static_pointer_cast<T>(it->second);
 		}
 		
 		template<typename T>
 		void remove() {
-			m_components.erase(typeid(T));
+			m_components.erase(typeid(T).hash_code());
 		}
 		
 		void debug() const {
 			DEBUG("=== Component list of object:", (void*)this, " ===");
 			DEBUG("=== List address:", (void*)&m_components);
+			
 			for(auto &it : m_components) {
-				DEBUG(it.first.name(), ":", (void*)it.second.get());
+				DEBUG(it.first, ":", (void*)it.second.get());
 			}
+			
 			DEBUG("=== End of list. ===");
 		}
 		
@@ -74,7 +77,7 @@ class SceneObject : public sf::Transformable {
 		std::string m_name;
 		std::string m_type;
 		
-		std::map<std::type_index, std::shared_ptr<void>> m_components;
+		std::map<size_t, std::shared_ptr<void>> m_components;
 };
 
 #endif // SCENEOBJECT_HPP_

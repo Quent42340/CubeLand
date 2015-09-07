@@ -59,7 +59,7 @@ void LevelLoader::loadLevel(u16 id, Tileset &tileset, ResourceHandler &handler) 
 		
 		tiles.push_back(tileID);
 		
-		// SceneObjectLoader::loadObjectFromTile(scene, tileX, tileY, tileID);
+		SceneObjectLoader::loadObjectFromTile(scene, tileX, tileY, tileID);
 		
 		tileElement = tileElement->NextSiblingElement("tile");
 	}
