@@ -10,7 +10,7 @@ project(CubeLand)
 # Get source files
 #------------------------------------------------------------------------------
 file(GLOB_RECURSE SOURCE_FILES source/*.cpp)
-file(GLOB_RECURSE HEADER_FILES include/*.hpp external/*/*/*/*.hpp)
+file(GLOB_RECURSE HEADER_FILES include/*.hpp)
 
 foreach(HEADER_FILE ${HEADER_FILES})
 	get_filename_component(HEADER_DIRECTORY ${HEADER_FILE} DIRECTORY)
@@ -23,10 +23,9 @@ endforeach(HEADER_FILE)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++11")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wfatal-errors")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-variadic-macros")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++")
 
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++ -static-libgcc")
 endif()
 
 #------------------------------------------------------------------------------
@@ -43,10 +42,15 @@ include_directories(${SFML_INCLUDE_DIRS})
 #------------------------------------------------------------------------------
 include(ExternalProject)
 
+set(EGDT_DIR ${CMAKE_SOURCE_DIR}/external/libegdt/src/libegdt)
+
 ExternalProject_Add(libegdt
 					PREFIX external/libegdt
 					GIT_REPOSITORY http://github.com/Quent42340/libegdt.git
-					INSTALL_COMMAND "")
+					INSTALL_DIR external/include
+					INSTALL_COMMAND sh -c "cp -f `find ${EGDT_DIR}/* -name *.hpp` ${CMAKE_SOURCE_DIR}/external/include")
+
+include_directories(external/include)
 
 link_directories(external/libegdt/src/libegdt-build)
 
@@ -54,7 +58,7 @@ link_directories(external/libegdt/src/libegdt-build)
 # Add executable
 #------------------------------------------------------------------------------
 add_executable(${CMAKE_PROJECT_NAME}
-               ${SOURCE_FILES})
+			   ${SOURCE_FILES})
 
 add_dependencies(${CMAKE_PROJECT_NAME} libegdt)
 
@@ -64,4 +68,3 @@ add_dependencies(${CMAKE_PROJECT_NAME} libegdt)
 target_link_libraries(${CMAKE_PROJECT_NAME}
 					  ${SFML_LIBRARIES}
 					  egdt)
-
