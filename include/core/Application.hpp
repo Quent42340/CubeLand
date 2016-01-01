@@ -18,6 +18,7 @@
 
 #include "GameClock.hpp"
 #include "KeyboardHandler.hpp"
+#include "ResourceHandler.hpp"
 
 class Application {
 	public:
@@ -38,6 +39,8 @@ class Application {
 		GameClock m_clock;
 		
 		KeyboardHandler m_keyboardHandler;
+		
+		ResourceHandler m_resourceHandler;
 };
 
 #endif // APPLICATION_HPP_

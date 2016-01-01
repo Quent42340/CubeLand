@@ -15,7 +15,6 @@
 #include "ApplicationStateStack.hpp"
 #include "GamePad.hpp"
 #include "Mouse.hpp"
-#include "ResourceHandler.hpp"
 #include "TitleScreenState.hpp"
 
 #include "LevelLoader.hpp"
@@ -33,6 +32,8 @@ Application::Application() {
 	m_window.setKeyRepeatEnabled(false);
 	
 	Mouse::setWindow(m_window);
+	
+	ResourceHandler::setInstance(m_resourceHandler);
 	
 	ResourceHandler::getInstance().loadConfigFile<TextureLoader>("data/config/textures.xml");
 	ResourceHandler::getInstance().loadConfigFile<TilesetLoader>("data/config/tilesets.xml");
