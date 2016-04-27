@@ -35,13 +35,13 @@ Application::Application() {
 	
 	ResourceHandler::setInstance(m_resourceHandler);
 	
-	ResourceHandler::getInstance().loadConfigFile<TextureLoader>("data/config/textures.xml");
-	ResourceHandler::getInstance().loadConfigFile<TilesetLoader>("data/config/tilesets.xml");
-	ResourceHandler::getInstance().loadConfigFile<LevelLoader>("data/config/levels.xml");
+	m_resourceHandler.loadConfigFile<TextureLoader>("data/config/textures.xml");
+	m_resourceHandler.loadConfigFile<TilesetLoader>("data/config/tilesets.xml");
+	m_resourceHandler.loadConfigFile<LevelLoader>("data/config/levels.xml");
 	
 	GamePad::init(m_keyboardHandler);
 	
-	sf::Font &defaultFont = ResourceHandler::getInstance().add<sf::Font>("font-default");
+	sf::Font &defaultFont = m_resourceHandler.add<sf::Font>("font-default");
 	defaultFont.loadFromFile("fonts/terminus.ttf");
 	
 	// ApplicationStateStack::getInstance().push<TitleScreenState>();
@@ -54,11 +54,8 @@ void Application::handleEvents() {
 	
 	sf::Event event;
 	while(m_window.pollEvent(event)) {
-		if(event.type == sf::Event::Closed) {
-			m_window.close();
-		}
-		
-		if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+		if((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+		 || event.type == sf::Event::Closed) {
 			m_window.close();
 		}
 		
