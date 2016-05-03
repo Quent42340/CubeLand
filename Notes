@@ -1,5 +1,9 @@
 ===================================== TODO =====================================
 
+=> Improve CMakeLists.txt
+	- It compiles even if the binary is up to date
+	- Maybe this problem is caused by the lib's 'install' command
+
 => Fix libegdt code
 	- Add LockSystem in Scene
 

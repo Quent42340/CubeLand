@@ -48,7 +48,7 @@ ExternalProject_Add(libegdt
 					PREFIX external/libegdt
 					GIT_REPOSITORY http://github.com/Quent42340/libegdt.git
 					INSTALL_DIR external/include
-					INSTALL_COMMAND sh -c "cp -f `find ${EGDT_DIR}/* -name *.hpp` ${CMAKE_SOURCE_DIR}/external/include")
+					INSTALL_COMMAND sh -c "echo 'n' | ln -si `find ${EGDT_DIR}/* -name *.hpp` ${CMAKE_SOURCE_DIR}/external/include > /dev/null 2>&1")
 
 include_directories(external/include)
 
