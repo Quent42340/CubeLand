@@ -3,7 +3,7 @@
  *
  *       Filename:  SceneObjectLoader.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  06/09/2015 18:42:59
  *
@@ -19,7 +19,7 @@
 class SceneObjectLoader {
 	public:
 		static void loadObjectsFromLevelID(Scene &scene, u16 levelID);
-		
+
 		static void loadObjectFromTile(Scene &scene, u16 tileX, u16 tileY, u16 tileID);
 };
 

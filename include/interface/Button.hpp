@@ -3,7 +3,7 @@
  *
  *       Filename:  Button.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  25/08/2015 18:42:09
  *
@@ -23,31 +23,31 @@
 
 class Button : public sf::Drawable, public sf::Transformable {
 	using Action = std::function<void(void)>;
-	
+
 	public:
 		Button(const char *text, u8 fontSize);
-		
+
 		void update();
-		
+
 		void action() { m_action(); }
-		
+
 		void enable() { m_isActivated = true; }
 		void disable() { m_isActivated = false; }
-		
+
 		float width() const { return m_rect.getSize().x + 4; }
 		float height() const { return m_rect.getSize().y + 4; }
-		
+
 		void setAction(const Action &action) { m_action = action; }
-		
+
 	private:
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-		
+
 		Action m_action;
-		
+
 		bool m_isActivated = true;
-		
+
 		sf::RectangleShape m_rect;
-		
+
 		sf::Text m_text;
 };
 

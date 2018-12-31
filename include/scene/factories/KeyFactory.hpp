@@ -3,7 +3,7 @@
  *
  *       Filename:  KeyFactory.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  29/08/2015 18:45:49
  *

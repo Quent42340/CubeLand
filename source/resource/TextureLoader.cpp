@@ -3,7 +3,7 @@
  *
  *       Filename:  TextureLoader.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  14/01/2015 20:29:21
  *
@@ -18,15 +18,15 @@
 
 void TextureLoader::load(const char *xmlFilename, ResourceHandler &handler) {
 	XMLFile doc(xmlFilename);
-	
+
 	XMLElement *textureElement = doc.FirstChildElement("textures").FirstChildElement("texture").ToElement();
 	while(textureElement) {
 		std::string folder = textureElement->Attribute("folder");
 		std::string name = textureElement->Attribute("name");
-		
+
 		sf::Texture &texture = handler.add<sf::Texture>(folder + "-" + name);
 		texture.loadFromFile("graphics/" + folder + "/" + name + ".png");
-		
+
 		textureElement = textureElement->NextSiblingElement("texture");
 	}
 }

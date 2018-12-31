@@ -33,7 +33,7 @@ endif()
 #------------------------------------------------------------------------------
 # - SFML
 #------------------------------------------------------------------------------
-find_package(SFML COMPONENTS graphics system window)
+find_package(SFML COMPONENTS graphics system window REQUIRED)
 
 include_directories(${SFML_INCLUDE_DIRS})
 
@@ -66,5 +66,7 @@ add_dependencies(${CMAKE_PROJECT_NAME} libegdt)
 # Link options
 #------------------------------------------------------------------------------
 target_link_libraries(${CMAKE_PROJECT_NAME}
-					  ${SFML_LIBRARIES}
-					  egdt)
+                      sfml-graphics
+                      sfml-system
+                      sfml-window
+                      egdt)

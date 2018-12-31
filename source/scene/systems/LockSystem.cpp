@@ -3,7 +3,7 @@
  *
  *       Filename:  LockSystem.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  29/08/2015 19:03:16
  *
@@ -16,23 +16,23 @@
 
 void LockSystem::update(SceneObjectList &objects) {
 	std::map<u16, bool> lockList;
-	
+
 	// Find which keys have been taken
 	for(auto &it : objects) {
 		if(it.has<LockComponent>()) {
 			auto &lockComponent = it.get<LockComponent>();
-			
+
 			if(lockComponent.isKey()) {
 				lockList.emplace(lockComponent.lockID(), lockComponent.isLocked());
 			}
 		}
 	}
-	
+
 	// Update doors
 	for(auto &it : objects) {
 		if(it.has<LockComponent>()) {
 			auto &lockComponent = it.get<LockComponent>();
-			
+
 			if(!lockComponent.isKey()
 			&& lockList.find(lockComponent.lockID()) != lockList.end()) {
 				if(lockList[lockComponent.lockID()]) {

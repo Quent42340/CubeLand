@@ -3,7 +3,7 @@
  *
  *       Filename:  SpikeFactory.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/09/2015 21:34:32
  *
@@ -25,10 +25,10 @@ SceneObject SpikeFactory::create(u16 tileX, u16 tileY) {
 	SceneObject spike;
 	spike.set<HitboxComponent>(0, 7, 16, 9);
 	spike.setPosition(tileX * 16, tileY * 16);
-	
+
 	auto &collisionComponent = spike.set<CollisionComponent>();
 	collisionComponent.addAction(&spikeAction);
-	
+
 	return spike;
 }
 

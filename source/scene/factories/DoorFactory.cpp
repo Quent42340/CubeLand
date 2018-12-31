@@ -3,7 +3,7 @@
  *
  *       Filename:  DoorFactory.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  01/09/2015 19:56:51
  *
@@ -27,10 +27,10 @@ SceneObject DoorFactory::create(u16 tileX, u16 tileY, u16 lockID) {
 	door.set<HitboxComponent>(0, 0, 16, 32);
 	door.set<LockComponent>(lockID, false);
 	door.setPosition(tileX * 16, tileY * 16);
-	
+
 	auto &collisionComponent = door.set<CollisionComponent>();
 	collisionComponent.addAction(&doorAction);
-	
+
 	return door;
 }
 

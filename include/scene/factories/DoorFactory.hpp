@@ -3,7 +3,7 @@
  *
  *       Filename:  DoorFactory.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  01/09/2015 19:56:05
  *

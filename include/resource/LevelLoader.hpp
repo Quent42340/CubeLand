@@ -3,7 +3,7 @@
  *
  *       Filename:  LevelLoader.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  12/01/2015 15:04:54
  *
@@ -20,9 +20,9 @@
 class LevelLoader : public ResourceLoader {
 	public:
 		void load(const char *xmlFilename, ResourceHandler &handler);
-		
+
 		void loadLevel(u16 id, Tileset &tileset, ResourceHandler &handler);
-		
+
 		static u16 levelsLoaded;
 };
 

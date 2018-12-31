@@ -3,7 +3,7 @@
  *
  *       Filename:  LevelState.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  14/08/2015 18:03:09
  *
@@ -22,16 +22,16 @@
 class LevelState : public ApplicationState {
 	public:
 		LevelState(u16 levelID);
-		
+
 		void update();
-		
+
 		static sf::View view;
-		
+
 	private:
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-		
+
 		u16 m_levelID = 0;
-		
+
 		SceneObject m_player;
 };
 

@@ -3,7 +3,7 @@
  *
  *       Filename:  SpikeFactory.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  02/09/2015 21:33:37
  *

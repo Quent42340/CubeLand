@@ -3,7 +3,7 @@
  *
  *       Filename:  main.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  09/08/2015 11:42:50
  *
@@ -11,13 +11,15 @@
  *
  * =====================================================================================
  */
+#include <iostream>
+
 #include "Application.hpp"
 #include "Exception.hpp"
 
 int main(int, char*[]) {
 	try {
 		Application app;
-		
+
 		app.run();
 	}
 	catch(const Exception &e) {
@@ -32,7 +34,7 @@ int main(int, char*[]) {
 		std::cerr << "Fatal error: Unknown error." << std::endl;
 		return 1;
 	}
-	
+
 	return 0;
 }
 

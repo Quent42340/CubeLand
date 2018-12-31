@@ -3,7 +3,7 @@
  *
  *       Filename:  SceneObjectLoader.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  06/09/2015 18:46:44
  *

@@ -3,7 +3,7 @@
  *
  *       Filename:  LockSystem.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  29/08/2015 19:02:20
  *

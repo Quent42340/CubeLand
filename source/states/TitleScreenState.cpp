@@ -3,7 +3,7 @@
  *
  *       Filename:  TitleScreenState.cpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  19/08/2015 19:09:42
  *
@@ -22,19 +22,19 @@
 
 TitleScreenState::TitleScreenState() {
 	m_font.loadFromFile("fonts/terminus.ttf");
-	
+
 	m_title.setPosition(Application::screenWidth / 2 - m_title.getGlobalBounds().width / 2 - m_title.getLocalBounds().left, 40);
-	
+
 	m_playButton.setAction([]{
 		ApplicationStateStack::getInstance().push<LevelListState>();
 	});
-	
+
 	m_playButton.setPosition(Application::screenWidth / 2 - m_playButton.width() / 2, 275);
 }
 
 void TitleScreenState::update() {
 	m_playButton.update();
-	
+
 	if(GamePad::isKeyPressedOnce(GameKey::Start)) {
 		m_playButton.action();
 	}
@@ -42,7 +42,7 @@ void TitleScreenState::update() {
 
 void TitleScreenState::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	target.draw(m_title, states);
-	
+
 	target.draw(m_playButton, states);
 }
 

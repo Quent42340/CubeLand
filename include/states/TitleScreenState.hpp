@@ -3,7 +3,7 @@
  *
  *       Filename:  TitleScreenState.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  19/08/2015 19:07:58
  *
@@ -21,16 +21,16 @@
 class TitleScreenState : public ApplicationState {
 	public:
 		TitleScreenState();
-		
+
 		void update();
-		
+
 	private:
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-		
+
 		sf::Font m_font;
-		
+
 		sf::Text m_title{"CubeLand", m_font, 128};
-		
+
 		Button m_playButton{"Play", 48};
 };
 

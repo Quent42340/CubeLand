@@ -3,7 +3,7 @@
  *
  *       Filename:  LevelEndState.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  29/08/2015 18:18:19
  *
@@ -23,18 +23,18 @@
 class LevelEndState : public ApplicationState {
 	public:
 		LevelEndState(ApplicationState *parent, bool isLevelPassed);
-		
+
 		void update();
-		
+
 	private:
 		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-		
+
 		Button m_okButton{"Back to level list", 40};
-		
+
 		bool m_isLevelPassed;
-		
+
 		sf::RectangleShape m_rect;
-		
+
 		sf::Text m_text;
 };
 

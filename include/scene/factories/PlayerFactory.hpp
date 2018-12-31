@@ -3,7 +3,7 @@
  *
  *       Filename:  PlayerFactory.hpp
  *
- *    Description:  
+ *    Description:
  *
  *        Created:  19/08/2015 15:35:58
  *
