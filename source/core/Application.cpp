@@ -35,6 +35,8 @@ Application::Application() {
 
 	ResourceHandler::setInstance(m_resourceHandler);
 
+	ApplicationStateStack::setInstance(m_stateStack);
+
 	m_resourceHandler.loadConfigFile<TextureLoader>("data/config/textures.xml");
 	m_resourceHandler.loadConfigFile<TilesetLoader>("data/config/tilesets.xml");
 	m_resourceHandler.loadConfigFile<LevelLoader>("data/config/levels.xml");
@@ -44,9 +46,9 @@ Application::Application() {
 	sf::Font &defaultFont = m_resourceHandler.add<sf::Font>("font-default");
 	defaultFont.loadFromFile("fonts/terminus.ttf");
 
-	ApplicationStateStack::getInstance().push<TitleScreenState>();
-	// ApplicationStateStack::getInstance().push<LevelListState>();
-	// ApplicationStateStack::getInstance().push<LevelState>(0);
+	// m_stateStack.push<TitleScreenState>();
+	// m_stateStack.push<LevelListState>();
+	m_stateStack.push<LevelState>(0);
 }
 
 void Application::handleEvents() {
@@ -70,13 +72,17 @@ void Application::run() {
 		m_clock.updateGame([&] {
 			if(quit) m_window.close();
 
-			ApplicationStateStack::getInstance().top().update();
+			if (!m_stateStack.empty())
+				m_stateStack.top().update();
+
+			m_stateStack.clearDeletedStates();
 		});
 
 		m_clock.drawGame([&] {
 			m_window.clear();
 
-			m_window.draw(ApplicationStateStack::getInstance().top());
+			if(!m_stateStack.empty())
+				m_window.draw(m_stateStack.top());
 
 			m_window.display();
 		});

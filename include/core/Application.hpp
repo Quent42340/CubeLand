@@ -16,6 +16,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "ApplicationStateStack.hpp"
 #include "GameClock.hpp"
 #include "KeyboardHandler.hpp"
 #include "ResourceHandler.hpp"
@@ -35,6 +36,8 @@ class Application {
 
 	private:
 		sf::RenderWindow m_window;
+
+		ApplicationStateStack m_stateStack;
 
 		GameClock m_clock;
 
