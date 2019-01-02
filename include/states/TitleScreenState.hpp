@@ -14,22 +14,25 @@
 #ifndef TITLESCREENSTATE_HPP_
 #define TITLESCREENSTATE_HPP_
 
-#include "ApplicationState.hpp"
-#include "Button.hpp"
-#include "Image.hpp"
+#include <gk/core/ApplicationState.hpp>
+#include <gk/gui/Image.hpp>
 
-class TitleScreenState : public ApplicationState {
+#include "Button.hpp"
+
+class TitleScreenState : public gk::ApplicationState {
 	public:
 		TitleScreenState();
 
-		void update();
+		void onEvent(const SDL_Event &event) override;
+
+		void update() override;
 
 	private:
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
-		sf::Font m_font;
+		gk::Font m_font{"resources/fonts/terminus.ttf"};
 
-		sf::Text m_title{"CubeLand", m_font, 128};
+		gk::Text m_title{"CubeLand", m_font, 128};
 
 		Button m_playButton{"Play", 48};
 };

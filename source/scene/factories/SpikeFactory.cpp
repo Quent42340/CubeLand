@@ -11,7 +11,8 @@
  *
  * =====================================================================================
  */
-#include "ApplicationStateStack.hpp"
+#include <gk/core/ApplicationStateStack.hpp>
+
 #include "LevelEndState.hpp"
 #include "Scene.hpp"
 #include "SpikeFactory.hpp"
@@ -34,7 +35,7 @@ SceneObject SpikeFactory::create(u16 tileX, u16 tileY) {
 
 void spikeAction(SceneObject&, SceneObject &object, bool isInCollision) {
 	if(isInCollision && Scene::isPlayer(object)) {
-		auto &stateStack = ApplicationStateStack::getInstance();
+		auto &stateStack = gk::ApplicationStateStack::getInstance();
 		stateStack.push<LevelEndState>(&stateStack.top(), false);
 	}
 }

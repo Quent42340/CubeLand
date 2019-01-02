@@ -11,6 +11,9 @@
  *
  * =====================================================================================
  */
+#include <gk/core/XMLFile.hpp>
+#include <gk/resource/ResourceHandler.hpp>
+
 #include "LevelLoader.hpp"
 #include "Map.hpp"
 #include "Scene.hpp"
@@ -18,10 +21,10 @@
 
 u16 LevelLoader::levelsLoaded = 0;
 
-void LevelLoader::load(const char *xmlFilename, ResourceHandler &handler) {
-	XMLFile doc(xmlFilename);
+void LevelLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
+	gk::XMLFile doc(xmlFilename);
 
-	XMLElement *levelElement = doc.FirstChildElement("levels").FirstChildElement("level").ToElement();
+	tinyxml2::XMLElement *levelElement = doc.FirstChildElement("levels").FirstChildElement("level").ToElement();
 	while(levelElement) {
 		u16 id = levelElement->IntAttribute("id");
 
@@ -35,10 +38,10 @@ void LevelLoader::load(const char *xmlFilename, ResourceHandler &handler) {
 	}
 }
 
-void LevelLoader::loadLevel(u16 id, Tileset &tileset, ResourceHandler &handler) {
-	XMLFile doc("data/maps/level" + std::to_string(id) + ".tmx");
+void LevelLoader::loadLevel(u16 id, Tileset &tileset, gk::ResourceHandler &handler) {
+	gk::XMLFile doc("resources/maps/level" + std::to_string(id) + ".tmx");
 
-	XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
+	tinyxml2::XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
 
 	u16 width = mapElement->IntAttribute("width");
 	u16 height = mapElement->IntAttribute("height");
@@ -48,7 +51,7 @@ void LevelLoader::loadLevel(u16 id, Tileset &tileset, ResourceHandler &handler) 
 	SceneObjectLoader::loadObjectsFromLevelID(scene, id);
 
 	std::vector<u16> tiles;
-	XMLElement *tileElement = mapElement->FirstChildElement("layer")->FirstChildElement("data")->FirstChildElement("tile");
+	tinyxml2::XMLElement *tileElement = mapElement->FirstChildElement("layer")->FirstChildElement("data")->FirstChildElement("tile");
 	while(tileElement) {
 		u16 tileX = tiles.size() % width;
 		u16 tileY = tiles.size() / width;

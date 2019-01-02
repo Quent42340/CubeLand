@@ -11,7 +11,8 @@
  *
  * =====================================================================================
  */
-#include "ApplicationStateStack.hpp"
+#include <gk/core/ApplicationStateStack.hpp>
+
 #include "DoorFactory.hpp"
 #include "LevelEndState.hpp"
 #include "Scene.hpp"
@@ -37,7 +38,7 @@ SceneObject DoorFactory::create(u16 tileX, u16 tileY, u16 lockID) {
 void doorAction(SceneObject &door, SceneObject &object, bool isInCollision) {
 	if(isInCollision && Scene::isPlayer(object)
 	&& !door.get<LockComponent>().isLocked()) {
-		auto &stateStack = ApplicationStateStack::getInstance();
+		auto &stateStack = gk::ApplicationStateStack::getInstance();
 		stateStack.push<LevelEndState>(&stateStack.top(), true);
 	}
 }

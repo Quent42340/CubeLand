@@ -16,16 +16,17 @@
 
 #include <functional>
 
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/Text.hpp>
+#include <gk/core/IntTypes.hpp>
+#include <gk/gui/RectangleShape.hpp>
+#include <gk/gui/Text.hpp>
 
-#include "IntTypes.hpp"
-
-class Button : public sf::Drawable, public sf::Transformable {
+class Button : public gk::IDrawable, public gk::Transformable {
 	using Action = std::function<void(void)>;
 
 	public:
 		Button(const char *text, u8 fontSize);
+
+		void onEvent(const SDL_Event &event);
 
 		void update();
 
@@ -40,15 +41,15 @@ class Button : public sf::Drawable, public sf::Transformable {
 		void setAction(const Action &action) { m_action = action; }
 
 	private:
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
 		Action m_action;
 
 		bool m_isActivated = true;
 
-		sf::RectangleShape m_rect;
+		gk::RectangleShape m_rect;
 
-		sf::Text m_text;
+		gk::Text m_text;
 };
 
 #endif // BUTTON_HPP_

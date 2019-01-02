@@ -1,5 +1,8 @@
 ===================================== TODO =====================================
 
+• TODO: Fix rectangle outlines
+• TODO: Remove last `libegdt` code and remove its repo
+
 => Improve CMakeLists.txt
 	- It compiles even if the binary is up to date
 	- Maybe this problem is caused by the lib's 'install' command

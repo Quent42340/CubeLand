@@ -14,14 +14,16 @@
 #ifndef LEVELLOADER_HPP_
 #define LEVELLOADER_HPP_
 
-#include "ResourceLoader.hpp"
-#include "Tileset.hpp"
+#include <gk/core/IntTypes.hpp>
+#include <gk/resource/IResourceLoader.hpp>
 
-class LevelLoader : public ResourceLoader {
+class Tileset;
+
+class LevelLoader : public gk::IResourceLoader {
 	public:
-		void load(const char *xmlFilename, ResourceHandler &handler);
+		void load(const char *xmlFilename, gk::ResourceHandler &handler);
 
-		void loadLevel(u16 id, Tileset &tileset, ResourceHandler &handler);
+		void loadLevel(u16 id, Tileset &tileset, gk::ResourceHandler &handler);
 
 		static u16 levelsLoaded;
 };

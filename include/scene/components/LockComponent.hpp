@@ -14,7 +14,7 @@
 #ifndef LOCKCOMPONENT_HPP_
 #define LOCKCOMPONENT_HPP_
 
-#include "IntTypes.hpp"
+#include <gk/core/IntTypes.hpp>
 
 class LockComponent {
 	public:

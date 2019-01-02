@@ -14,36 +14,26 @@
 #ifndef APPLICATION_HPP_
 #define APPLICATION_HPP_
 
-#include <SFML/Graphics.hpp>
+#include <gk/core/CoreApplication.hpp>
+#include <gk/gl/Shader.hpp>
 
-#include "ApplicationStateStack.hpp"
-#include "GameClock.hpp"
 #include "KeyboardHandler.hpp"
-#include "ResourceHandler.hpp"
 
-class Application {
+class Application : public gk::CoreApplication {
 	public:
-		Application();
+		Application(int argc, char **argv) : gk::CoreApplication(argc, argv) {}
 
-		void handleEvents();
-
-		void run();
-
-		static bool quit;
+		void init();
 
 		const static u16 screenWidth = 640;
 		const static u16 screenHeight = 480;
 
 	private:
-		sf::RenderWindow m_window;
-
-		ApplicationStateStack m_stateStack;
-
-		GameClock m_clock;
+		void onEvent(const SDL_Event &event);
 
 		KeyboardHandler m_keyboardHandler;
 
-		ResourceHandler m_resourceHandler;
+		gk::Shader m_shader;
 };
 
 #endif // APPLICATION_HPP_

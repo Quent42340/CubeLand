@@ -11,21 +11,22 @@
  *
  * =====================================================================================
  */
+#include <gk/core/XMLFile.hpp>
+
 #include "Filesystem.hpp"
 #include "SceneObjectLoader.hpp"
-#include "XMLFile.hpp"
 
 #include "SpikeFactory.hpp"
 
 void SceneObjectLoader::loadObjectsFromLevelID(Scene &scene, u16 levelID) {
 	if(Filesystem::fileExists("data/config/levels/level" + std::to_string(levelID) + ".xml")) {
-		XMLFile doc("data/config/levels/level" + std::to_string(levelID) + ".xml");
+		gk::XMLFile doc("data/config/levels/level" + std::to_string(levelID) + ".xml");
 
-		XMLElement *objectElement = doc.FirstChildElement("level").FirstChildElement().ToElement();
+		tinyxml2::XMLElement *objectElement = doc.FirstChildElement("level").FirstChildElement().ToElement();
 		while(objectElement) {
 			std::string objectName = objectElement->Name();
 
-			// Put here object loading
+			// Put object loading here
 
 			objectElement = objectElement->NextSiblingElement();
 		}

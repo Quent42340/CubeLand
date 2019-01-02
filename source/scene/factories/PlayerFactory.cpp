@@ -13,10 +13,11 @@
  */
 #include <cmath>
 
+#include <gk/gui/Image.hpp>
+
 #include "Application.hpp"
 #include "CollisionSystem.hpp"
 #include "GamePadMovement.hpp"
-#include "Image.hpp"
 #include "LevelState.hpp"
 #include "Map.hpp"
 #include "PlayerFactory.hpp"
@@ -33,7 +34,7 @@ void scrollLevel(SceneObject &player);
 SceneObject PlayerFactory::create(u16 x, u16 y) {
 	SceneObject player;
 	player.set<HitboxComponent>(0, 0, 16, 16);
-	player.set<Image>("characters-player");
+	player.set<gk::Image>("characters-player");
 	player.set<MovementComponent>(new GamePadMovement);
 	player.setPosition(x, y);
 
@@ -57,15 +58,15 @@ SceneObject PlayerFactory::create(u16 x, u16 y) {
 void checkCollisions(SceneObject &player) {
 	auto &movement = player.get<MovementComponent>();
 
-	sf::FloatRect hitbox(0, 0, player.get<Image>().width(), player.get<Image>().height());
+	gk::FloatRect hitbox(0, 0, player.get<gk::Image>().width(), player.get<gk::Image>().height());
 
-	float hitboxX1 = player.getPosition().x + hitbox.left;
-	float hitboxY1 = player.getPosition().y + hitbox.top;
+	float hitboxX1 = player.getPosition().x + hitbox.x;
+	float hitboxY1 = player.getPosition().y + hitbox.y;
 
 	float hitboxX2 = hitboxX1 + hitbox.width - 1.0f;
 	float hitboxY2 = hitboxY1 + hitbox.height - 1.0f;
 
-	sf::Vector2f sides[4][4] = {
+	gk::Vector2f sides[4][4] = {
 		{{hitboxX2, hitboxY1}, {hitboxX2, hitboxY2}},
 		{{hitboxX1, hitboxY1}, {hitboxX1, hitboxY2}},
 		{{hitboxX1, hitboxY1}, {hitboxX2, hitboxY1}},
@@ -106,21 +107,24 @@ void checkCollisions(SceneObject &player) {
 }
 
 void scrollLevel(SceneObject &player) {
-	sf::Vector2f playerCenter = player.getPosition() + sf::Vector2f(player.get<Image>().width(), player.get<Image>().height()) / 2.0f;
-
-	sf::Vector2f screenHalfSize{Application::screenWidth  / 2,
+	gk::Vector2f screenHalfSize{Application::screenWidth  / 2,
 	                            Application::screenHeight / 2};
 
-	sf::Vector2i mapSize{Map::currentMap->width()  * Map::currentMap->tileset().tileWidth(),
+	gk::Vector2i mapSize{Map::currentMap->width()  * Map::currentMap->tileset().tileWidth(),
 	                     Map::currentMap->height() * Map::currentMap->tileset().tileHeight()};
 
-	if(playerCenter.x > screenHalfSize.x
-	&& playerCenter.x < mapSize.x - screenHalfSize.x) {
+	gk::Vector2f playerCenter{
+		player.getPosition().x + player.get<gk::Image>().width() / 2.0f,
+		player.getPosition().y + player.get<gk::Image>().height() / 2.0f,
+	};
+
+	if (playerCenter.x > screenHalfSize.x
+	 && playerCenter.x < mapSize.x - screenHalfSize.x) {
 		LevelState::view.setCenter(floor(playerCenter.x), LevelState::view.getCenter().y);
 	}
 
-	if(playerCenter.y > screenHalfSize.y
-	&& playerCenter.y < mapSize.y - screenHalfSize.y) {
+	if (playerCenter.y > screenHalfSize.y
+	 && playerCenter.y < mapSize.y - screenHalfSize.y) {
 		LevelState::view.setCenter(LevelState::view.getCenter().x, floor(playerCenter.y));
 	}
 }

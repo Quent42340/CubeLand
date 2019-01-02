@@ -11,21 +11,22 @@
  *
  * =====================================================================================
  */
-#include <SFML/Graphics/Texture.hpp>
+#include <gk/core/XMLFile.hpp>
+#include <gk/gl/Texture.hpp>
+#include <gk/resource/ResourceHandler.hpp>
 
 #include "TextureLoader.hpp"
-#include "XMLFile.hpp"
 
-void TextureLoader::load(const char *xmlFilename, ResourceHandler &handler) {
-	XMLFile doc(xmlFilename);
+void TextureLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
+	gk::XMLFile doc(xmlFilename);
 
-	XMLElement *textureElement = doc.FirstChildElement("textures").FirstChildElement("texture").ToElement();
+	tinyxml2::XMLElement *textureElement = doc.FirstChildElement("textures").FirstChildElement("texture").ToElement();
 	while(textureElement) {
 		std::string folder = textureElement->Attribute("folder");
 		std::string name = textureElement->Attribute("name");
 
-		sf::Texture &texture = handler.add<sf::Texture>(folder + "-" + name);
-		texture.loadFromFile("graphics/" + folder + "/" + name + ".png");
+		gk::Texture &texture = handler.add<gk::Texture>(folder + "-" + name);
+		texture.loadFromFile("resources/graphics/" + folder + "/" + name + ".png");
 
 		textureElement = textureElement->NextSiblingElement("texture");
 	}

@@ -14,32 +14,33 @@
 #ifndef LEVELLISTSTATE_HPP_
 #define LEVELLISTSTATE_HPP_
 
-#include <SFML/Graphics/Font.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/Text.hpp>
+#include <gk/core/ApplicationState.hpp>
+#include <gk/core/IntTypes.hpp>
+#include <gk/gui/Font.hpp>
+#include <gk/gui/RectangleShape.hpp>
+#include <gk/gui/Text.hpp>
 
-#include "ApplicationState.hpp"
-#include "IntTypes.hpp"
-
-class LevelListState : public ApplicationState {
+class LevelListState : public gk::ApplicationState {
 	public:
 		LevelListState();
 
-		void update();
+		void onEvent(const SDL_Event &event) override;
 
-		void drawLevel(u16 id, sf::RenderTarget &target, sf::RenderStates states) const;
+		void update() override;
+
+		void drawLevel(u16 id, gk::RenderTarget &target, gk::RenderStates states) const;
 
 	private:
-		sf::Font m_font;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
-		sf::Text m_title{"Choose a level", m_font, 80};
+		gk::Font m_font{"resources/fonts/terminus.ttf"};
 
-		sf::RectangleShape m_rectangle{sf::Vector2f(580, 350)};
+		gk::Text m_title{"Choose a level", m_font, 80};
 
-		sf::RectangleShape m_cursor{sf::Vector2f(125, 40)};
+		gk::RectangleShape m_rectangle{580, 350};
+
+		gk::RectangleShape m_cursor{125, 40};
 		u16 m_cursorPosition = 0;
-
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };
 
 #endif // LEVELLISTSTATE_HPP_

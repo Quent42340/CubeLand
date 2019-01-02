@@ -14,21 +14,21 @@
 #ifndef LEVELSTATE_HPP_
 #define LEVELSTATE_HPP_
 
-#include <SFML/Graphics/View.hpp>
+#include <gk/core/ApplicationState.hpp>
+#include <gk/gl/View.hpp>
 
-#include "ApplicationState.hpp"
 #include "SceneObject.hpp"
 
-class LevelState : public ApplicationState {
+class LevelState : public gk::ApplicationState {
 	public:
 		LevelState(u16 levelID);
 
-		void update();
+		void update() override;
 
-		static sf::View view;
+		static gk::View view;
 
 	private:
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
 		u16 m_levelID = 0;
 

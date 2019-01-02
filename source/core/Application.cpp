@@ -11,10 +11,9 @@
  *
  * =====================================================================================
  */
+#include <gk/core/input/GamePad.hpp>
+
 #include "Application.hpp"
-#include "ApplicationStateStack.hpp"
-#include "GamePad.hpp"
-#include "Mouse.hpp"
 #include "TitleScreenState.hpp"
 
 #include "LevelLoader.hpp"
@@ -25,67 +24,34 @@
 #include "LevelState.hpp"
 #include "LevelListState.hpp"
 
-bool Application::quit = false;
+void Application::init() {
+	gk::CoreApplication::init();
 
-Application::Application() {
-	m_window.create(sf::VideoMode(screenWidth, screenHeight), "CubeLand", sf::Style::Close);
-	m_window.setKeyRepeatEnabled(false);
+	createWindow(screenWidth, screenHeight, "CubeLand");
 
-	Mouse::setWindow(m_window);
+	m_shader.loadFromFile("resources/shaders/game.v.glsl", "resources/shaders/game.f.glsl");
+	m_renderStates.shader = &m_shader;
+	m_renderStates.vertexAttributes = gk::VertexAttribute::Only2d;
+	m_renderStates.projectionMatrix = glm::ortho(0.0f, (float)screenWidth, (float)screenHeight, 0.0f);
 
-	ResourceHandler::setInstance(m_resourceHandler);
+	m_resourceHandler.loadConfigFile<TextureLoader>("resources/config/textures.xml");
+	m_resourceHandler.loadConfigFile<TilesetLoader>("resources/config/tilesets.xml");
+	m_resourceHandler.loadConfigFile<LevelLoader>("resources/config/levels.xml");
+	m_resourceHandler.add<gk::Font>("font-default", "resources/fonts/terminus.ttf");
 
-	ApplicationStateStack::setInstance(m_stateStack);
+	m_keyboardHandler.loadKeysFromFile("resources/config/keys.xml");
+	gk::GamePad::init(m_keyboardHandler);
 
-	m_resourceHandler.loadConfigFile<TextureLoader>("data/config/textures.xml");
-	m_resourceHandler.loadConfigFile<TilesetLoader>("data/config/tilesets.xml");
-	m_resourceHandler.loadConfigFile<LevelLoader>("data/config/levels.xml");
-
-	GamePad::init(m_keyboardHandler);
-
-	sf::Font &defaultFont = m_resourceHandler.add<sf::Font>("font-default");
-	defaultFont.loadFromFile("fonts/terminus.ttf");
-
-	// m_stateStack.push<TitleScreenState>();
+	m_stateStack.push<TitleScreenState>();
 	// m_stateStack.push<LevelListState>();
-	m_stateStack.push<LevelState>(0);
+	// m_stateStack.push<LevelState>(0);
 }
 
-void Application::handleEvents() {
-	m_keyboardHandler.resetState();
+void Application::onEvent(const SDL_Event &event) {
+	gk::CoreApplication::onEvent(event);
 
-	sf::Event event;
-	while(m_window.pollEvent(event)) {
-		if((event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-		 || event.type == sf::Event::Closed) {
-			m_window.close();
-		}
-
-		m_keyboardHandler.updateState(event);
-	}
-}
-
-void Application::run() {
-	while(m_window.isOpen()) {
-		handleEvents();
-
-		m_clock.updateGame([&] {
-			if(quit) m_window.close();
-
-			if (!m_stateStack.empty())
-				m_stateStack.top().update();
-
-			m_stateStack.clearDeletedStates();
-		});
-
-		m_clock.drawGame([&] {
-			m_window.clear();
-
-			if(!m_stateStack.empty())
-				m_window.draw(m_stateStack.top());
-
-			m_window.display();
-		});
+	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+		m_window.close();
 	}
 }
 

@@ -14,28 +14,30 @@
 #ifndef LEVELENDSTATE_HPP_
 #define LEVELENDSTATE_HPP_
 
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/Text.hpp>
+#include <gk/core/ApplicationState.hpp>
+#include <gk/gui/RectangleShape.hpp>
+#include <gk/gui/Text.hpp>
 
-#include "ApplicationState.hpp"
 #include "Button.hpp"
 
-class LevelEndState : public ApplicationState {
+class LevelEndState : public gk::ApplicationState {
 	public:
-		LevelEndState(ApplicationState *parent, bool isLevelPassed);
+		LevelEndState(gk::ApplicationState *parent, bool isLevelPassed);
 
-		void update();
+		void onEvent(const SDL_Event &event) override;
+
+		void update() override;
 
 	private:
-		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
 		Button m_okButton{"Back to level list", 40};
 
 		bool m_isLevelPassed;
 
-		sf::RectangleShape m_rect;
+		gk::RectangleShape m_rect;
 
-		sf::Text m_text;
+		gk::Text m_text;
 };
 
 #endif // LEVELENDSTATE_HPP_
