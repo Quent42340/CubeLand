@@ -24,6 +24,7 @@ Button::Button(const char *text, u8 fontSize) {
 	m_text.setText(text);
 
 	m_rect.setColor(gk::Color::Black);
+	// FIXME
 	// m_rect.setOutlineColor(gk::Color::White);
 	// m_rect.setOutlineThickness(2);
 	m_rect.setPosition(2, 2); // Outline

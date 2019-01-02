@@ -13,10 +13,10 @@
  */
 #include <gk/core/XMLFile.hpp>
 #include <gk/resource/ResourceHandler.hpp>
+#include <gk/scene/Scene.hpp>
 
 #include "LevelLoader.hpp"
 #include "Map.hpp"
-#include "Scene.hpp"
 #include "SceneObjectLoader.hpp"
 
 u16 LevelLoader::levelsLoaded = 0;
@@ -46,7 +46,7 @@ void LevelLoader::loadLevel(u16 id, Tileset &tileset, gk::ResourceHandler &handl
 	u16 width = mapElement->IntAttribute("width");
 	u16 height = mapElement->IntAttribute("height");
 
-	Scene &scene = handler.add<Scene>("level" + std::to_string(id) + "-scene");
+	gk::Scene &scene = handler.add<gk::Scene>("level" + std::to_string(id) + "-scene");
 
 	SceneObjectLoader::loadObjectsFromLevelID(scene, id);
 

@@ -16,8 +16,7 @@
 
 #include <gk/core/ApplicationState.hpp>
 #include <gk/gl/View.hpp>
-
-#include "SceneObject.hpp"
+#include <gk/scene/Scene.hpp>
 
 class LevelState : public gk::ApplicationState {
 	public:
@@ -32,7 +31,9 @@ class LevelState : public gk::ApplicationState {
 
 		u16 m_levelID = 0;
 
-		SceneObject m_player;
+		gk::SceneObject m_player;
+
+		gk::Scene *m_scene = nullptr;
 };
 
 #endif // LEVELSTATE_HPP_

@@ -14,11 +14,11 @@
 #ifndef LOCKSYSTEM_HPP_
 #define LOCKSYSTEM_HPP_
 
-#include "SceneObjectList.hpp"
+#include <gk/scene/SceneObjectList.hpp>
 
 class LockSystem {
 	public:
-		static void update(SceneObjectList &objects);
+		static void update(gk::SceneObjectList &objects);
 };
 
 #endif // LOCKSYSTEM_HPP_

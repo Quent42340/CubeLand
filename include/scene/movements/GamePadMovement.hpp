@@ -14,11 +14,11 @@
 #ifndef GAMEPADMOVEMENT_HPP_
 #define GAMEPADMOVEMENT_HPP_
 
-#include "Movement.hpp"
+#include "gk/scene/movement/Movement.hpp"
 
-class GamePadMovement : public Movement {
+class GamePadMovement : public gk::Movement {
 	public:
-		void process(SceneObject &object);
+		void process(gk::SceneObject &object);
 
 		enum class JumpState : u8 {
 			Landed,

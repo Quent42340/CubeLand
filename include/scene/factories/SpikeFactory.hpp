@@ -14,11 +14,14 @@
 #ifndef SPIKEFACTORY_HPP_
 #define SPIKEFACTORY_HPP_
 
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class SpikeFactory {
 	public:
-		static SceneObject create(u16 tileX, u16 tileY);
+		static gk::SceneObject create(u16 tileX, u16 tileY);
+
+	private:
+		static void action(gk::SceneObject &spike, gk::SceneObject &object, bool isInCollision);
 };
 
 #endif // SPIKEFACTORY_HPP_

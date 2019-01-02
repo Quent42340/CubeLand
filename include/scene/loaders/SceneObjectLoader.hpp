@@ -14,13 +14,13 @@
 #ifndef SCENEOBJECTLOADER_HPP_
 #define SCENEOBJECTLOADER_HPP_
 
-#include "Scene.hpp"
+#include <gk/scene/Scene.hpp>
 
 class SceneObjectLoader {
 	public:
-		static void loadObjectsFromLevelID(Scene &scene, u16 levelID);
+		static void loadObjectsFromLevelID(gk::Scene &scene, u16 levelID);
 
-		static void loadObjectFromTile(Scene &scene, u16 tileX, u16 tileY, u16 tileID);
+		static void loadObjectFromTile(gk::Scene &scene, u16 tileX, u16 tileY, u16 tileID);
 };
 
 #endif // SCENEOBJECTLOADER_HPP_

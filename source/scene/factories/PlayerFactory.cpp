@@ -14,54 +14,45 @@
 #include <cmath>
 
 #include <gk/gui/Image.hpp>
+#include <gk/scene/behaviour/EasyBehaviour.hpp>
+#include <gk/scene/component/BehaviourComponent.hpp>
+#include <gk/scene/component/CollisionComponent.hpp>
+#include <gk/scene/component/HitboxComponent.hpp>
+#include <gk/scene/component/MovementComponent.hpp>
+#include <gk/scene/component/PositionComponent.hpp>
 
 #include "Application.hpp"
-#include "CollisionSystem.hpp"
+#include "GameKey.hpp"
 #include "GamePadMovement.hpp"
 #include "LevelState.hpp"
 #include "Map.hpp"
 #include "PlayerFactory.hpp"
-#include "Scene.hpp"
 
-#include "BehaviourComponent.hpp"
-#include "CollisionComponent.hpp"
-#include "HitboxComponent.hpp"
-#include "MovementComponent.hpp"
-
-void checkCollisions(SceneObject &player);
-void scrollLevel(SceneObject &player);
-
-SceneObject PlayerFactory::create(u16 x, u16 y) {
-	SceneObject player;
-	player.set<HitboxComponent>(0, 0, 16, 16);
+gk::SceneObject PlayerFactory::create(u16 x, u16 y) {
+	gk::SceneObject player{"player", "player"};
+	player.set<gk::HitboxComponent>(0, 0, 16, 16);
 	player.set<gk::Image>("characters-player");
-	player.set<MovementComponent>(new GamePadMovement);
-	player.setPosition(x, y);
+	player.set<gk::PositionComponent>(x, y);
 
-	auto &collisionComponent = player.set<CollisionComponent>();
+	player.set<gk::MovementComponent>(new GamePadMovement);
+
+	auto &collisionComponent = player.set<gk::CollisionComponent>();
 	collisionComponent.addChecker(&checkCollisions);
 
-	collisionComponent.addChecker([&](SceneObject &object) {
-		for(SceneObject &object2 : Scene::currentScene->objects()) {
-			if(&object != &object2) {
-				CollisionSystem::checkCollision(object, object2);
-			}
-		}
-	});
-
-	auto &behaviourComponent = player.set<BehaviourComponent>();
-	behaviourComponent.addAction("scrollLevel", &scrollLevel);
+	auto &behaviourComponent = player.set<gk::BehaviourComponent>();
+	behaviourComponent.addBehaviour<gk::EasyBehaviour>("scrollLevel", &scrollLevel);
 
 	return player;
 }
 
-void checkCollisions(SceneObject &player) {
-	auto &movement = player.get<MovementComponent>();
+void PlayerFactory::checkCollisions(gk::SceneObject &player) {
+	auto &position = player.get<gk::PositionComponent>();
+	auto &movement = player.get<gk::MovementComponent>();
 
 	gk::FloatRect hitbox(0, 0, player.get<gk::Image>().width(), player.get<gk::Image>().height());
 
-	float hitboxX1 = player.getPosition().x + hitbox.x;
-	float hitboxY1 = player.getPosition().y + hitbox.y;
+	float hitboxX1 = position.x + hitbox.x;
+	float hitboxY1 = position.y + hitbox.y;
 
 	float hitboxX2 = hitboxX1 + hitbox.width - 1.0f;
 	float hitboxY2 = hitboxY1 + hitbox.height - 1.0f;
@@ -106,16 +97,17 @@ void checkCollisions(SceneObject &player) {
 	}
 }
 
-void scrollLevel(SceneObject &player) {
+void PlayerFactory::scrollLevel(gk::SceneObject &player) {
 	gk::Vector2f screenHalfSize{Application::screenWidth  / 2,
 	                            Application::screenHeight / 2};
 
 	gk::Vector2i mapSize{Map::currentMap->width()  * Map::currentMap->tileset().tileWidth(),
 	                     Map::currentMap->height() * Map::currentMap->tileset().tileHeight()};
 
+	auto position = player.get<gk::PositionComponent>();
 	gk::Vector2f playerCenter{
-		player.getPosition().x + player.get<gk::Image>().width() / 2.0f,
-		player.getPosition().y + player.get<gk::Image>().height() / 2.0f,
+		position.x + player.get<gk::Image>().width() / 2.0f,
+		position.y + player.get<gk::Image>().height() / 2.0f,
 	};
 
 	if (playerCenter.x > screenHalfSize.x

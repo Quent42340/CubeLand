@@ -11,33 +11,34 @@
  *
  * =====================================================================================
  */
+#include <gk/scene/component/CollisionComponent.hpp>
+#include <gk/scene/component/HitboxComponent.hpp>
+#include <gk/scene/component/PositionComponent.hpp>
+
 #include "KeyFactory.hpp"
-#include "Map.hpp"
-#include "Scene.hpp"
-
-#include "CollisionComponent.hpp"
-#include "HitboxComponent.hpp"
 #include "LockComponent.hpp"
+#include "Map.hpp"
 
-void keyAction(SceneObject &key, SceneObject &object, bool isInCollision);
+void keyAction(gk::SceneObject &key, gk::SceneObject &object, bool isInCollision);
 
-SceneObject KeyFactory::create(u16 tileX, u16 tileY, u16 lockID) {
-	SceneObject key;
-	key.set<HitboxComponent>(4, 0, 9, 16);
+gk::SceneObject KeyFactory::create(u16 tileX, u16 tileY, u16 lockID) {
+	gk::SceneObject key;
+	key.set<gk::PositionComponent>(tileX * 16, tileY * 16);
+	key.set<gk::HitboxComponent>(4, 0, 9, 16);
 	key.set<LockComponent>(lockID, true);
-	key.setPosition(tileX * 16, tileY * 16);
 
-	auto &collisionComponent = key.set<CollisionComponent>();
+	auto &collisionComponent = key.set<gk::CollisionComponent>();
 	collisionComponent.addAction(&keyAction);
 
 	return key;
 }
 
-void keyAction(SceneObject &key, SceneObject &object, bool isInCollision) {
-	if(isInCollision && Scene::isPlayer(object)) {
+void keyAction(gk::SceneObject &key, gk::SceneObject &object, bool isInCollision) {
+	if(isInCollision && object.type() == "player") {
 		key.get<LockComponent>().unlock();
 
-		Map::currentMap->setTile(key.getPosition().x / 16, key.getPosition().y / 16, 0);
+		auto &position = key.get<gk::PositionComponent>();
+		Map::currentMap->setTile(position.x / 16, position.y / 16, 0);
 	}
 }
 

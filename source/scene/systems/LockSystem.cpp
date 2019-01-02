@@ -11,10 +11,12 @@
  *
  * =====================================================================================
  */
+#include <map>
+
 #include "LockComponent.hpp"
 #include "LockSystem.hpp"
 
-void LockSystem::update(SceneObjectList &objects) {
+void LockSystem::update(gk::SceneObjectList &objects) {
 	std::map<u16, bool> lockList;
 
 	// Find which keys have been taken

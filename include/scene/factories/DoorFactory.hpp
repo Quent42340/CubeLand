@@ -14,11 +14,11 @@
 #ifndef DOORFACTORY_HPP_
 #define DOORFACTORY_HPP_
 
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class DoorFactory {
 	public:
-		static SceneObject create(u16 tileX, u16 tileY, u16 lockID);
+		static gk::SceneObject create(u16 tileX, u16 tileY, u16 lockID);
 };
 
 #endif // DOORFACTORY_HPP_

@@ -11,13 +11,14 @@
  *
  * =====================================================================================
  */
-#include <SFML/Window/Keyboard.hpp>
+#include <gk/core/input/GamePad.hpp>
+#include <gk/scene/component/MovementComponent.hpp>
 
+#include "GameKey.hpp"
 #include "GamePadMovement.hpp"
-#include "MovementComponent.hpp"
 
-void GamePadMovement::process(SceneObject &object) {
-	auto &movement = object.get<MovementComponent>();
+void GamePadMovement::process(gk::SceneObject &object) {
+	auto &movement = object.get<gk::MovementComponent>();
 
 	if(movement.isBlocked.y) {
 		m_jumpState = JumpState::Landed;
@@ -28,14 +29,14 @@ void GamePadMovement::process(SceneObject &object) {
 
 	movement.v.x = 0;
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+	if(gk::GamePad::isKeyPressed(GameKey::Left)) {
 		movement.v.x = -m_speed;
 	}
-	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+	else if(gk::GamePad::isKeyPressed(GameKey::Right)) {
 		movement.v.x = m_speed;
 	}
 
-	if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && movement.v.y == 0 && m_jumpState == JumpState::Landed) {
+	if(gk::GamePad::isKeyPressed(GameKey::A) && movement.v.y == 0 && m_jumpState == JumpState::Landed) {
 		movement.v.y = -m_jumpSpeed;
 
 		m_jumpState = JumpState::Jumping;

@@ -12,29 +12,26 @@
  * =====================================================================================
  */
 #include <gk/core/ApplicationStateStack.hpp>
+#include <gk/scene/component/CollisionComponent.hpp>
+#include <gk/scene/component/HitboxComponent.hpp>
+#include <gk/scene/component/PositionComponent.hpp>
 
 #include "LevelEndState.hpp"
-#include "Scene.hpp"
 #include "SpikeFactory.hpp"
 
-#include "CollisionComponent.hpp"
-#include "HitboxComponent.hpp"
+gk::SceneObject SpikeFactory::create(u16 tileX, u16 tileY) {
+	gk::SceneObject spike;
+	spike.set<gk::HitboxComponent>(0, 7, 16, 9);
+	spike.set<gk::PositionComponent>(tileX * 16, tileY * 16);
 
-void spikeAction(SceneObject&, SceneObject &object, bool isInCollision);
-
-SceneObject SpikeFactory::create(u16 tileX, u16 tileY) {
-	SceneObject spike;
-	spike.set<HitboxComponent>(0, 7, 16, 9);
-	spike.setPosition(tileX * 16, tileY * 16);
-
-	auto &collisionComponent = spike.set<CollisionComponent>();
-	collisionComponent.addAction(&spikeAction);
+	auto &collisionComponent = spike.set<gk::CollisionComponent>();
+	collisionComponent.addAction(&SpikeFactory::action);
 
 	return spike;
 }
 
-void spikeAction(SceneObject&, SceneObject &object, bool isInCollision) {
-	if(isInCollision && Scene::isPlayer(object)) {
+void SpikeFactory::action(gk::SceneObject&, gk::SceneObject &object, bool isInCollision) {
+	if(isInCollision && object.type() == "player") {
 		auto &stateStack = gk::ApplicationStateStack::getInstance();
 		stateStack.push<LevelEndState>(&stateStack.top(), false);
 	}

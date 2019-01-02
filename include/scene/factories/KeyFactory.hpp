@@ -14,11 +14,11 @@
 #ifndef KEYFACTORY_HPP_
 #define KEYFACTORY_HPP_
 
-#include "SceneObject.hpp"
+#include <gk/scene/SceneObject.hpp>
 
 class KeyFactory {
 	public:
-		static SceneObject create(u16 tileX, u16 tileY, u16 lockID);
+		static gk::SceneObject create(u16 tileX, u16 tileY, u16 lockID);
 };
 
 #endif // KEYFACTORY_HPP_
