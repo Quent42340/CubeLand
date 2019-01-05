@@ -13,7 +13,7 @@
  */
 #include <gk/core/Mouse.hpp>
 #include <gk/gl/RenderTarget.hpp>
-#include <gk/gui/Font.hpp>
+#include <gk/graphics/Font.hpp>
 #include <gk/resource/ResourceHandler.hpp>
 
 #include "Button.hpp"

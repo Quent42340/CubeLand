@@ -15,8 +15,8 @@
 #define LEVELENDSTATE_HPP_
 
 #include <gk/core/ApplicationState.hpp>
-#include <gk/gui/RectangleShape.hpp>
-#include <gk/gui/Text.hpp>
+#include <gk/graphics/RectangleShape.hpp>
+#include <gk/graphics/Text.hpp>
 
 #include "Button.hpp"
 

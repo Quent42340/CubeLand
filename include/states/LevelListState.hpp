@@ -16,9 +16,9 @@
 
 #include <gk/core/ApplicationState.hpp>
 #include <gk/core/IntTypes.hpp>
-#include <gk/gui/Font.hpp>
-#include <gk/gui/RectangleShape.hpp>
-#include <gk/gui/Text.hpp>
+#include <gk/graphics/Font.hpp>
+#include <gk/graphics/RectangleShape.hpp>
+#include <gk/graphics/Text.hpp>
 
 class LevelListState : public gk::ApplicationState {
 	public:

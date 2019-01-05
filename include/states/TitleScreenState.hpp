@@ -15,7 +15,7 @@
 #define TITLESCREENSTATE_HPP_
 
 #include <gk/core/ApplicationState.hpp>
-#include <gk/gui/Image.hpp>
+#include <gk/graphics/Image.hpp>
 
 #include "Button.hpp"
 

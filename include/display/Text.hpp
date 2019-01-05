@@ -14,7 +14,7 @@
 #ifndef TEXT_HPP_
 #define TEXT_HPP_
 
-#include <gk/gui/Text.hpp>
+#include <gk/graphics/Text.hpp>
 
 class Text : public gk::Text {
 	public:

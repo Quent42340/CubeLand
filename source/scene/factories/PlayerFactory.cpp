@@ -13,7 +13,7 @@
  */
 #include <cmath>
 
-#include <gk/gui/Image.hpp>
+#include <gk/graphics/Image.hpp>
 #include <gk/scene/behaviour/EasyBehaviour.hpp>
 #include <gk/scene/component/BehaviourComponent.hpp>
 #include <gk/scene/component/CollisionComponent.hpp>

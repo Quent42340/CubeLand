@@ -17,8 +17,8 @@
 #include <functional>
 
 #include <gk/core/IntTypes.hpp>
-#include <gk/gui/RectangleShape.hpp>
-#include <gk/gui/Text.hpp>
+#include <gk/graphics/RectangleShape.hpp>
+#include <gk/graphics/Text.hpp>
 
 class Button : public gk::IDrawable, public gk::Transformable {
 	using Action = std::function<void(void)>;
