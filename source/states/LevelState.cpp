@@ -38,7 +38,7 @@ LevelState::LevelState(u16 levelID) {
 	m_scene->addController<gk::MovementController>();
 	m_scene->addView<gk::SpriteView>();
 
-	m_player = m_scene->addObject(PlayerFactory::create(2 * 16, 28 * 16));
+	m_player = m_scene->addObject(PlayerFactory::create(2 * 16, 28 * 16)); // FIXME: This is weird
 
 	m_scene->addObject(KeyFactory::create(78, 24, 0));
 	m_scene->addObject(DoorFactory::create(78, 1, 0));

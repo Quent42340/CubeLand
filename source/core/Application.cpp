@@ -32,7 +32,6 @@ void Application::init() {
 	m_shader.loadFromFile("resources/shaders/game.v.glsl", "resources/shaders/game.f.glsl");
 	m_renderStates.shader = &m_shader;
 	m_renderStates.vertexAttributes = gk::VertexAttribute::Only2d;
-	m_renderStates.projectionMatrix = glm::ortho(0.0f, (float)screenWidth, (float)screenHeight, 0.0f);
 
 	m_resourceHandler.loadConfigFile<TextureLoader>("resources/config/textures.xml");
 	m_resourceHandler.loadConfigFile<TilesetLoader>("resources/config/tilesets.xml");

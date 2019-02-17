@@ -25,15 +25,13 @@ LevelListState::LevelListState() {
 
 	m_rectangle.setPosition(30, 100);
 	m_rectangle.setColor(gk::Color::Transparent);
-	// FIXME
-	// m_rectangle.setOutlineColor(sf::Color::White);
-	// m_rectangle.setOutlineThickness(2);
+	m_rectangle.setOutlineColor(gk::Color::White);
+	m_rectangle.setOutlineThickness(2);
 
 	m_cursor.setPosition(45, 110);
 	m_cursor.setColor(gk::Color::Transparent);
-	// FIXME
-	// m_cursor.setOutlineColor(sf::Color::White);
-	// m_cursor.setOutlineThickness(2);
+	m_cursor.setOutlineColor(gk::Color::White);
+	m_cursor.setOutlineThickness(2);
 }
 
 void LevelListState::onEvent(const SDL_Event &event) {
