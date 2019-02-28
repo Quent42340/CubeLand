@@ -23,9 +23,6 @@
 #include "LevelListState.hpp"
 
 TitleScreenState::TitleScreenState() {
-	m_title.setText("CubeLand");
-	m_title.setFont(m_font);
-	m_title.setCharacterSize(128);
 	m_title.setPosition(Application::screenWidth / 2 - m_title.getLocalBounds().width / 2 - m_title.getLocalBounds().x, 40);
 
 	m_playButton.setAction([]{

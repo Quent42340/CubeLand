@@ -37,7 +37,7 @@ class LevelEndState : public gk::ApplicationState {
 
 		gk::RectangleShape m_rect;
 
-		gk::Text m_text;
+		gk::Text m_text{"font-default", 80};
 };
 
 #endif // LEVELENDSTATE_HPP_

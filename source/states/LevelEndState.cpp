@@ -37,8 +37,6 @@ LevelEndState::LevelEndState(gk::ApplicationState *parent, bool isLevelPassed) :
 
 	m_rect.setSize(Application::screenWidth, Application::screenHeight);
 
-	m_text.setCharacterSize(80);
-	m_text.setFont(gk::ResourceHandler::getInstance().get<gk::Font>("font-default"));
 	m_text.setText((m_isLevelPassed) ? "Level passed!" : "Failed!");
 
 	gk::FloatRect textRect = m_text.getLocalBounds();

@@ -30,9 +30,7 @@ class TitleScreenState : public gk::ApplicationState {
 	private:
 		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
-		gk::Font m_font{"resources/fonts/terminus.ttf"};
-
-		gk::Text m_title{"CubeLand", m_font, 128};
+		gk::Text m_title{"CubeLand", "font-default", 128};
 
 		Button m_playButton{"Play", 48};
 };

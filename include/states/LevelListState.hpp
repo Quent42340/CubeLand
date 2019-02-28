@@ -33,9 +33,7 @@ class LevelListState : public gk::ApplicationState {
 	private:
 		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
-		gk::Font m_font{"resources/fonts/terminus.ttf"};
-
-		gk::Text m_title{"Choose a level", m_font, 80};
+		gk::Text m_title{"Choose a level", "font-default", 80};
 
 		gk::RectangleShape m_rectangle{580, 350};
 

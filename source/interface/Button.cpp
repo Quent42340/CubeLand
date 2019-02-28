@@ -14,13 +14,12 @@
 #include <gk/core/Mouse.hpp>
 #include <gk/gl/RenderTarget.hpp>
 #include <gk/graphics/Font.hpp>
-#include <gk/resource/ResourceHandler.hpp>
 
 #include "Button.hpp"
 
 Button::Button(const char *text, u8 fontSize) {
 	m_text.setCharacterSize(fontSize);
-	m_text.setFont(gk::ResourceHandler::getInstance().get<gk::Font>("font-default"));
+	m_text.setFont("font-default");
 	m_text.setText(text);
 
 	m_rect.setColor(gk::Color::Black);

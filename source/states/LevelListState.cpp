@@ -54,7 +54,7 @@ void LevelListState::update() {
 }
 
 void LevelListState::drawLevel(u16 id, gk::RenderTarget &target, gk::RenderStates states) const {
-	gk::Text label("Level " + std::to_string(id), m_font, 32);
+	gk::Text label("Level " + std::to_string(id), "font-default", 32);
 	label.setPosition(50, 110 + id * (label.getLocalBounds().height + 5));
 
 	target.draw(label, states);
