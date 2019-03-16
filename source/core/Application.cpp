@@ -12,13 +12,13 @@
  * =====================================================================================
  */
 #include <gk/core/input/GamePad.hpp>
+#include <gk/resource/TextureLoader.hpp>
 
 #include "Application.hpp"
 #include "TitleScreenState.hpp"
 
 #include "LevelLoader.hpp"
 #include "TilesetLoader.hpp"
-#include "TextureLoader.hpp"
 
 #include "LevelEndState.hpp"
 #include "LevelState.hpp"
@@ -33,7 +33,7 @@ void Application::init() {
 	m_renderStates.shader = &m_shader;
 	m_renderStates.vertexAttributes = gk::VertexAttribute::Only2d;
 
-	m_resourceHandler.loadConfigFile<TextureLoader>("resources/config/textures.xml");
+	m_resourceHandler.loadConfigFile<gk::TextureLoader>("resources/config/textures.xml");
 	m_resourceHandler.loadConfigFile<TilesetLoader>("resources/config/tilesets.xml");
 	m_resourceHandler.loadConfigFile<LevelLoader>("resources/config/levels.xml");
 	m_resourceHandler.add<gk::Font>("font-default", "resources/fonts/terminus.ttf");

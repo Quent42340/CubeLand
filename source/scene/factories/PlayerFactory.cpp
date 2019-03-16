@@ -31,7 +31,7 @@
 gk::SceneObject PlayerFactory::create(u16 x, u16 y) {
 	gk::SceneObject player{"player", "player"};
 	player.set<gk::HitboxComponent>(0, 0, 16, 16);
-	player.set<gk::Image>("characters-player");
+	player.set<gk::Image>("texture-characters-player");
 	player.set<gk::PositionComponent>(x, y);
 
 	player.set<gk::MovementComponent>(new GamePadMovement);

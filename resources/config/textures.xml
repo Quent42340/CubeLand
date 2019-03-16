@@ -1,3 +1,3 @@
 <textures>
-	<texture folder="characters" name="player"/>
+	<texture name="characters-player" path="resources/graphics/characters/player.png"/>
 </textures>
