@@ -28,7 +28,7 @@ Button::Button(const char *text, u8 fontSize) {
 	m_rect.setPosition(2, 2); // Outline
 	m_rect.setSize(m_text.getLocalBounds().width + 64, m_text.getLocalBounds().height + 16);
 
-	gk::FloatRect textRect = m_text.getLocalBounds();
+	gk::FloatRect textRect = gk::FloatRect(m_text.getLocalBounds());
 	m_text.setOrigin(textRect.x + textRect.width  / 2,
 	                 textRect.y  + textRect.height / 2);
 
@@ -44,7 +44,7 @@ void Button::onEvent(const SDL_Event &event) {
 }
 
 void Button::update() {
-	gk::FloatRect hitbox{getPosition().x, getPosition().y, width(), height()};
+	gk::IntRect hitbox(getPosition().x, getPosition().y, width(), height());
 
 	if(gk::Mouse::isInRect(hitbox)) {
 		m_rect.setColor(gk::Color(100, 100, 100, 75));

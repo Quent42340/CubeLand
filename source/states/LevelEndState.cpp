@@ -39,7 +39,7 @@ LevelEndState::LevelEndState(gk::ApplicationState *parent, bool isLevelPassed) :
 
 	m_text.setText((m_isLevelPassed) ? "Level passed!" : "Failed!");
 
-	gk::FloatRect textRect = m_text.getLocalBounds();
+	gk::FloatRect textRect = gk::FloatRect(m_text.getLocalBounds());
 	m_text.setOrigin(textRect.x + textRect.width  / 2,
 	                 textRect.y + textRect.height / 2);
 
