@@ -11,9 +11,10 @@
  *
  * =====================================================================================
  */
-#include <gk/core/IntTypes.hpp>
-#include <gk/core/XMLFile.hpp>
 #include <gk/core/Debug.hpp>
+#include <gk/core/IntTypes.hpp>
+#include <gk/core/KeyboardUtils.hpp>
+#include <gk/core/XMLFile.hpp>
 
 #include "GameKey.hpp"
 #include "KeyboardHandler.hpp"
@@ -26,9 +27,9 @@ void KeyboardHandler::loadKeysFromFile(const std::string &filename) {
 	// Reading keys from names as defined here: https://wiki.libsdl.org/SDL_Keycode
 	auto addKey = [&](gk::GameKey key, const char *name) {
 		tinyxml2::XMLElement *keyElement = keys->FirstChildElement(name);
-		m_keys[key] = SDL_GetKeyFromName(keyElement->Attribute("key"));
+		m_keys[key] = gk::KeyboardUtils::getKeyFromName(keyElement->Attribute("key"));
 
-		if(m_keys[key] == SDLK_UNKNOWN) {
+		if(m_keys[key] == sf::Keyboard::Unknown) {
 			DEBUG("Key '", keyElement->Attribute("key"), "' not recognized");
 		}
 	};
@@ -46,11 +47,8 @@ void KeyboardHandler::loadKeysFromFile(const std::string &filename) {
 }
 
 bool KeyboardHandler::isKeyPressed(gk::GameKey key) {
-	const u8 *keyboardState = SDL_GetKeyboardState(nullptr);
-	SDL_Scancode keyScancode = SDL_GetScancodeFromKey(m_keys[key]);
+	m_keysPressed[key] = sf::Keyboard::isKeyPressed(m_keys[key]);
 
-	m_keysPressed[key] = keyboardState[keyScancode];
-
-	return keyboardState[keyScancode];
+	return m_keysPressed[key];
 }
 

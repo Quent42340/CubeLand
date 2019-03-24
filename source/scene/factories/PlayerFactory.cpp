@@ -49,15 +49,15 @@ void PlayerFactory::checkCollisions(gk::SceneObject &player) {
 	auto &position = player.get<gk::PositionComponent>();
 	auto &movement = player.get<gk::MovementComponent>();
 
-	gk::FloatRect hitbox(0, 0, player.get<gk::Image>().width(), player.get<gk::Image>().height());
+	sf::FloatRect hitbox(0, 0, player.get<gk::Image>().width(), player.get<gk::Image>().height());
 
-	float hitboxX1 = position.x + hitbox.x;
-	float hitboxY1 = position.y + hitbox.y;
+	float hitboxX1 = position.x + hitbox.left;
+	float hitboxY1 = position.y + hitbox.top;
 
 	float hitboxX2 = hitboxX1 + hitbox.width - 1.0f;
 	float hitboxY2 = hitboxY1 + hitbox.height - 1.0f;
 
-	gk::Vector2f sides[4][4] = {
+	sf::Vector2f sides[4][4] = {
 		{{hitboxX2, hitboxY1}, {hitboxX2, hitboxY2}},
 		{{hitboxX1, hitboxY1}, {hitboxX1, hitboxY2}},
 		{{hitboxX1, hitboxY1}, {hitboxX2, hitboxY1}},
@@ -98,14 +98,14 @@ void PlayerFactory::checkCollisions(gk::SceneObject &player) {
 }
 
 void PlayerFactory::scrollLevel(gk::SceneObject &player) {
-	gk::Vector2f screenHalfSize{Application::screenWidth  / 2,
+	sf::Vector2f screenHalfSize{Application::screenWidth  / 2,
 	                            Application::screenHeight / 2};
 
-	gk::Vector2i mapSize{Map::currentMap->width()  * Map::currentMap->tileset().tileWidth(),
+	sf::Vector2i mapSize{Map::currentMap->width()  * Map::currentMap->tileset().tileWidth(),
 	                     Map::currentMap->height() * Map::currentMap->tileset().tileHeight()};
 
 	auto position = player.get<gk::PositionComponent>();
-	gk::Vector2f playerCenter{
+	sf::Vector2f playerCenter{
 		position.x + player.get<gk::Image>().width() / 2.0f,
 		position.y + player.get<gk::Image>().height() / 2.0f,
 	};

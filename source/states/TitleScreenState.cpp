@@ -23,19 +23,22 @@
 #include "LevelListState.hpp"
 
 TitleScreenState::TitleScreenState() {
-	m_title.setPosition(Application::screenWidth / 2 - m_title.getLocalBounds().width / 2 - m_title.getLocalBounds().x, 40);
+	m_title.setPosition(Application::screenWidth / 2 - m_title.getLocalBounds().width / 2 - m_title.getLocalBounds().left, 40);
+	m_title.setFont(gk::ResourceHandler::getInstance().get<sf::Font>("font-default"));
+	m_title.setCharacterSize(128);
+	m_title.setString("CubeLand");
 
-	m_playButton.setAction([]{
+	m_playButton.setAction([] {
 		gk::ApplicationStateStack::getInstance().push<LevelListState>();
 	});
 
 	m_playButton.setPosition(Application::screenWidth / 2 - m_playButton.width() / 2, 275);
 }
 
-void TitleScreenState::onEvent(const SDL_Event &event) {
+void TitleScreenState::onEvent(const sf::Event &event) {
 	m_playButton.onEvent(event);
 
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN) {
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Return) {
 		m_playButton.action();
 	}
 }

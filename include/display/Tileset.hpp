@@ -14,10 +14,11 @@
 #ifndef TILESET_HPP_
 #define TILESET_HPP_
 
-#include <gk/core/IntTypes.hpp>
-#include <gk/gl/Texture.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
-class Tileset : public gk::Texture {
+#include <gk/core/IntTypes.hpp>
+
+class Tileset : public sf::Texture {
 	public:
 		Tileset(const std::string &filename, u16 tileWidth, u16 tileHeight);
 

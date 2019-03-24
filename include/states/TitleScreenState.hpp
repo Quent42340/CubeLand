@@ -23,14 +23,14 @@ class TitleScreenState : public gk::ApplicationState {
 	public:
 		TitleScreenState();
 
-		void onEvent(const SDL_Event &event) override;
+		void onEvent(const sf::Event &event) override;
 
 		void update() override;
 
 	private:
 		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
-		gk::Text m_title{"CubeLand", "font-default", 128};
+		sf::Text m_title;
 
 		Button m_playButton{"Play", 48};
 };

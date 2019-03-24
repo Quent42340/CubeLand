@@ -16,9 +16,13 @@
 
 #include <functional>
 
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Event.hpp>
+
 #include <gk/core/IntTypes.hpp>
-#include <gk/graphics/RectangleShape.hpp>
-#include <gk/graphics/Text.hpp>
+#include <gk/gl/IDrawable.hpp>
+#include <gk/gl/Transformable.hpp>
 
 class Button : public gk::IDrawable, public gk::Transformable {
 	using Action = std::function<void(void)>;
@@ -26,7 +30,7 @@ class Button : public gk::IDrawable, public gk::Transformable {
 	public:
 		Button(const char *text, u8 fontSize);
 
-		void onEvent(const SDL_Event &event);
+		void onEvent(const sf::Event &event);
 
 		void update();
 
@@ -47,9 +51,9 @@ class Button : public gk::IDrawable, public gk::Transformable {
 
 		bool m_isActivated = true;
 
-		gk::RectangleShape m_rect;
+		sf::RectangleShape m_rect;
 
-		gk::Text m_text;
+		sf::Text m_text;
 };
 
 #endif // BUTTON_HPP_

@@ -16,8 +16,9 @@
 
 #include <map>
 
+#include <SFML/Window/Keyboard.hpp>
+
 #include <gk/core/input/InputHandler.hpp>
-#include <gk/core/SDLHeaders.hpp>
 
 class KeyboardHandler : public gk::InputHandler {
 	public:
@@ -26,7 +27,7 @@ class KeyboardHandler : public gk::InputHandler {
 		bool isKeyPressed(gk::GameKey key);
 
 	private:
-		std::map<gk::GameKey, SDL_Keycode> m_keys;
+		std::map<gk::GameKey, sf::Keyboard::Key> m_keys;
 };
 
 #endif // KEYBOARDHANDLER_HPP_

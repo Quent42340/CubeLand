@@ -14,9 +14,11 @@
 #ifndef TEXT_HPP_
 #define TEXT_HPP_
 
-#include <gk/graphics/Text.hpp>
+#include <SFML/Graphics/Text.hpp>
 
-class Text : public gk::Text {
+#include <gk/core/IntTypes.hpp>
+
+class Text : public sf::Text {
 	public:
 		Text(const char *fontName, unsigned int characterSize = 30);
 		Text(const char *fontName, const std::string &text, unsigned int characterSize = 30);

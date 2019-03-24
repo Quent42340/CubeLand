@@ -37,11 +37,11 @@ void MapRenderer::updateTile(u16 tileX, u16 tileY, u16 id) {
 	float x = tileX * tileWidth;
 	float y = tileY * tileHeight;
 
-	float texTileX = id % u16(m_tileset->width() / tileWidth) * tileWidth  / m_tileset->width();
-	float texTileY = id / u16(m_tileset->width() / tileWidth) * tileHeight / m_tileset->height();
+	float texTileX = id % u16(m_tileset->getSize().x / tileWidth) * tileWidth  / m_tileset->getSize().x;
+	float texTileY = id / u16(m_tileset->getSize().y / tileWidth) * tileHeight / m_tileset->getSize().y;
 
-	float texTileWidth  = tileWidth  / m_tileset->width();
-	float texTileHeight = tileHeight / m_tileset->height();
+	float texTileWidth  = tileWidth  / m_tileset->getSize().x;
+	float texTileHeight = tileHeight / m_tileset->getSize().y;
 
 	gk::Vertex vertices[] = {
 		{{x            , y             , 0, 1}, {texTileX               , texTileY                }, {1.0f, 1.0f, 1.0f, 1.0f}},

@@ -27,7 +27,7 @@
 void Application::init() {
 	gk::CoreApplication::init();
 
-	createWindow(screenWidth, screenHeight, "CubeLand");
+	m_window.create(screenWidth, screenHeight, "CubeLand");
 
 	m_shader.loadFromFile("resources/shaders/game.v.glsl", "resources/shaders/game.f.glsl");
 	m_renderStates.shader = &m_shader;
@@ -36,7 +36,7 @@ void Application::init() {
 	m_resourceHandler.loadConfigFile<gk::TextureLoader>("resources/config/textures.xml");
 	m_resourceHandler.loadConfigFile<TilesetLoader>("resources/config/tilesets.xml");
 	m_resourceHandler.loadConfigFile<LevelLoader>("resources/config/levels.xml");
-	m_resourceHandler.add<gk::Font>("font-default", "resources/fonts/terminus.ttf");
+	m_resourceHandler.add<sf::Font>("font-default").loadFromFile("resources/fonts/terminus.ttf");
 
 	m_keyboardHandler.loadKeysFromFile("resources/config/keys.xml");
 	gk::GamePad::init(m_keyboardHandler);
@@ -46,11 +46,11 @@ void Application::init() {
 	// m_stateStack.push<LevelState>(0);
 }
 
-void Application::onEvent(const SDL_Event &event) {
+void Application::onEvent(const sf::Event &event) {
 	gk::CoreApplication::onEvent(event);
 
-	if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
-		m_window.close();
+	if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+		m_isRunning = false;
 	}
 }
 

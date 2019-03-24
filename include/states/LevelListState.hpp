@@ -14,17 +14,17 @@
 #ifndef LEVELLISTSTATE_HPP_
 #define LEVELLISTSTATE_HPP_
 
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Text.hpp>
+
 #include <gk/core/ApplicationState.hpp>
 #include <gk/core/IntTypes.hpp>
-#include <gk/graphics/Font.hpp>
-#include <gk/graphics/RectangleShape.hpp>
-#include <gk/graphics/Text.hpp>
 
 class LevelListState : public gk::ApplicationState {
 	public:
 		LevelListState();
 
-		void onEvent(const SDL_Event &event) override;
+		void onEvent(const sf::Event &event) override;
 
 		void update() override;
 
@@ -33,11 +33,11 @@ class LevelListState : public gk::ApplicationState {
 	private:
 		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
 
-		gk::Text m_title{"Choose a level", "font-default", 80};
+		sf::Text m_title;
 
-		gk::RectangleShape m_rectangle{580, 350};
+		sf::RectangleShape m_rectangle{{580, 350}};
 
-		gk::RectangleShape m_cursor{125, 40};
+		sf::RectangleShape m_cursor{{125, 40}};
 		u16 m_cursorPosition = 0;
 };
 

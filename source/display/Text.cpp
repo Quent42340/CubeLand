@@ -16,12 +16,12 @@
 #include "Text.hpp"
 
 Text::Text(const char *fontName, unsigned int characterSize) {
-	setFont(gk::ResourceHandler::getInstance().get<gk::Font>(fontName));
+	setFont(gk::ResourceHandler::getInstance().get<sf::Font>(fontName));
 	setCharacterSize(characterSize);
 }
 
 Text::Text(const char *fontName, const std::string &text, unsigned int characterSize) : Text(fontName, characterSize) {
-	setText(text);
+	setString(text);
 }
 
 void Text::setMaxWidth(u16 width) {

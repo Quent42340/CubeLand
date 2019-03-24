@@ -15,8 +15,6 @@
 #define LEVELENDSTATE_HPP_
 
 #include <gk/core/ApplicationState.hpp>
-#include <gk/graphics/RectangleShape.hpp>
-#include <gk/graphics/Text.hpp>
 
 #include "Button.hpp"
 
@@ -24,7 +22,7 @@ class LevelEndState : public gk::ApplicationState {
 	public:
 		LevelEndState(gk::ApplicationState *parent, bool isLevelPassed);
 
-		void onEvent(const SDL_Event &event) override;
+		void onEvent(const sf::Event &event) override;
 
 		void update() override;
 
@@ -35,9 +33,9 @@ class LevelEndState : public gk::ApplicationState {
 
 		bool m_isLevelPassed;
 
-		gk::RectangleShape m_rect;
+		sf::RectangleShape m_rect;
 
-		gk::Text m_text{"font-default", 80};
+		sf::Text m_text; //{"font-default", 80};
 };
 
 #endif // LEVELENDSTATE_HPP_

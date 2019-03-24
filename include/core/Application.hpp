@@ -23,13 +23,13 @@ class Application : public gk::CoreApplication {
 	public:
 		Application(int argc, char **argv) : gk::CoreApplication(argc, argv) {}
 
-		void init();
+		void init() override;
 
 		const static u16 screenWidth = 640;
 		const static u16 screenHeight = 480;
 
 	private:
-		void onEvent(const SDL_Event &event);
+		void onEvent(const sf::Event &event) override;
 
 		KeyboardHandler m_keyboardHandler;
 

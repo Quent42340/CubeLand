@@ -13,43 +13,43 @@
  */
 #include <gk/core/Mouse.hpp>
 #include <gk/gl/RenderTarget.hpp>
-#include <gk/graphics/Font.hpp>
+#include <gk/resource/ResourceHandler.hpp>
 
 #include "Button.hpp"
 
 Button::Button(const char *text, u8 fontSize) {
 	m_text.setCharacterSize(fontSize);
-	m_text.setFont("font-default");
-	m_text.setText(text);
+	m_text.setFont(gk::ResourceHandler::getInstance().get<sf::Font>("font-default"));
+	m_text.setString(text);
 
-	m_rect.setColor(gk::Color::Black);
-	m_rect.setOutlineColor(gk::Color::White);
+	m_rect.setFillColor(sf::Color::Black);
+	m_rect.setOutlineColor(sf::Color::White);
 	m_rect.setOutlineThickness(2);
 	m_rect.setPosition(2, 2); // Outline
-	m_rect.setSize(m_text.getLocalBounds().width + 64, m_text.getLocalBounds().height + 16);
+	m_rect.setSize({m_text.getLocalBounds().width + 64, m_text.getLocalBounds().height + 16});
 
-	gk::FloatRect textRect = gk::FloatRect(m_text.getLocalBounds());
-	m_text.setOrigin(textRect.x + textRect.width  / 2,
-	                 textRect.y  + textRect.height / 2);
+	sf::FloatRect textRect = sf::FloatRect(m_text.getLocalBounds());
+	m_text.setOrigin(textRect.left + textRect.width  / 2,
+	                 textRect.top  + textRect.height / 2);
 
 	m_text.setPosition(width() / 2, height() / 2);
 }
 
-void Button::onEvent(const SDL_Event &event) {
-	if (event.type == SDL_MOUSEBUTTONDOWN) {
-		if(m_isActivated && event.button.button == SDL_BUTTON_LEFT) {
+void Button::onEvent(const sf::Event &event) {
+	if (event.type == sf::Event::MouseButtonPressed) {
+		if(m_isActivated && event.mouseButton.button == sf::Mouse::Left) {
 			m_action();
 		}
 	}
 }
 
 void Button::update() {
-	gk::IntRect hitbox(getPosition().x, getPosition().y, width(), height());
+	sf::IntRect hitbox(getPosition().x, getPosition().y, width(), height());
 
 	if(gk::Mouse::isInRect(hitbox)) {
-		m_rect.setColor(gk::Color(100, 100, 100, 75));
+		m_rect.setFillColor(sf::Color(100, 100, 100, 75));
 	} else {
-		m_rect.setColor(gk::Color::Black);
+		m_rect.setFillColor(sf::Color::Black);
 	}
 }
 
