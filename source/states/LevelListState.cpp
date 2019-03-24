@@ -21,10 +21,10 @@
 #include "LevelState.hpp"
 
 LevelListState::LevelListState() {
-	m_title.setPosition(Application::screenWidth / 2 - m_title.getLocalBounds().width / 2 - m_title.getLocalBounds().left, 0);
 	m_title.setFont(gk::ResourceHandler::getInstance().get<sf::Font>("font-default"));
 	m_title.setCharacterSize(80);
 	m_title.setString("Choose a level");
+	m_title.setPosition(Application::screenWidth / 2 - m_title.getLocalBounds().width / 2 - m_title.getLocalBounds().left, 0);
 
 	m_rectangle.setPosition(30, 100);
 	m_rectangle.setFillColor(sf::Color::Transparent);
@@ -56,14 +56,14 @@ void LevelListState::update() {
 	}
 }
 
-void LevelListState::drawLevel(u16 id, gk::RenderTarget &target, gk::RenderStates states) const {
+void LevelListState::drawLevel(u16 id, sf::RenderTarget &target, sf::RenderStates states) const {
 	sf::Text label("Level " + std::to_string(id), gk::ResourceHandler::getInstance().get<sf::Font>("font-default"), 32);
 	label.setPosition(50, 110 + id * (label.getLocalBounds().height + 5));
 
 	target.draw(label, states);
 }
 
-void LevelListState::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void LevelListState::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	for(u16 i = 0 ; i < LevelLoader::levelsLoaded ; i++) {
 		drawLevel(i, target, states);
 	}

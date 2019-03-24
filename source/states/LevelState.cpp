@@ -24,7 +24,7 @@
 #include "DoorFactory.hpp"
 #include "KeyFactory.hpp"
 
-gk::View LevelState::view{{0, 0, Application::screenWidth, Application::screenHeight}};
+sf::View LevelState::view{{0, 0, Application::screenWidth, Application::screenHeight}};
 
 LevelState::LevelState(u16 levelID) {
 	m_levelID = levelID;
@@ -48,7 +48,7 @@ void LevelState::update() {
 	m_scene->update();
 }
 
-void LevelState::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void LevelState::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	target.setView(view);
 
 	target.draw(*Map::currentMap, states);

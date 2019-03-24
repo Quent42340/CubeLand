@@ -27,7 +27,7 @@ class LevelEndState : public gk::ApplicationState {
 		void update() override;
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		Button m_okButton{"Back to level list", 40};
 

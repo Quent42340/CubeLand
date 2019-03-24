@@ -28,10 +28,10 @@ class LevelListState : public gk::ApplicationState {
 
 		void update() override;
 
-		void drawLevel(u16 id, gk::RenderTarget &target, gk::RenderStates states) const;
+		void drawLevel(u16 id, sf::RenderTarget &target, sf::RenderStates states) const;
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		sf::Text m_title;
 

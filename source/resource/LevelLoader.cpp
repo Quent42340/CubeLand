@@ -28,7 +28,7 @@ void LevelLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
 	while(levelElement) {
 		u16 id = levelElement->IntAttribute("id");
 
-		Tileset &tileset = handler.get<Tileset>(levelElement->Attribute("tileset"));
+		gk::Tileset &tileset = handler.get<gk::Tileset>(levelElement->Attribute("tileset"));
 
 		loadLevel(id, tileset, handler);
 
@@ -38,7 +38,7 @@ void LevelLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
 	}
 }
 
-void LevelLoader::loadLevel(u16 id, Tileset &tileset, gk::ResourceHandler &handler) {
+void LevelLoader::loadLevel(u16 id, gk::Tileset &tileset, gk::ResourceHandler &handler) {
 	gk::XMLFile doc("resources/maps/level" + std::to_string(id) + ".tmx");
 
 	tinyxml2::XMLElement *mapElement = doc.FirstChildElement("map").ToElement();

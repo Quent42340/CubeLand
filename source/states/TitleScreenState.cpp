@@ -23,10 +23,10 @@
 #include "LevelListState.hpp"
 
 TitleScreenState::TitleScreenState() {
-	m_title.setPosition(Application::screenWidth / 2 - m_title.getLocalBounds().width / 2 - m_title.getLocalBounds().left, 40);
 	m_title.setFont(gk::ResourceHandler::getInstance().get<sf::Font>("font-default"));
 	m_title.setCharacterSize(128);
 	m_title.setString("CubeLand");
+	m_title.setPosition(Application::screenWidth / 2 - m_title.getLocalBounds().width / 2 - m_title.getLocalBounds().left, 40);
 
 	m_playButton.setAction([] {
 		gk::ApplicationStateStack::getInstance().push<LevelListState>();
@@ -47,7 +47,7 @@ void TitleScreenState::update() {
 	m_playButton.update();
 }
 
-void TitleScreenState::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void TitleScreenState::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	target.draw(m_title, states);
 
 	target.draw(m_playButton, states);

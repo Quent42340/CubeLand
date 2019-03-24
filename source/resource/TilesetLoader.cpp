@@ -5,16 +5,16 @@
  *
  *    Description:
  *
- *        Created:  12/01/2015 16:32:29
+ *        Created:  15/02/2019 19:37:30
  *
- *         Author:  Quentin Bazin, <gnidmoo@gmail.com>
+ *         Author:  Quentin Bazin, <quent42340@gmail.com>
  *
  * =====================================================================================
  */
 #include <gk/core/XMLFile.hpp>
+#include <gk/graphics/Tileset.hpp>
 #include <gk/resource/ResourceHandler.hpp>
 
-#include "Tileset.hpp"
 #include "TilesetLoader.hpp"
 
 void TilesetLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
@@ -25,10 +25,9 @@ void TilesetLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) 
 		std::string name = tilesetElement->Attribute("name");
 		std::string filename = "resources/graphics/tilesets/" + name + ".png";
 
-		u16 tileWidth = tilesetElement->IntAttribute("tileWidth");
-		u16 tileHeight = tilesetElement->IntAttribute("tileHeight");
+		std::string configFile = "resources/tilesets/" + name + ".tsx";
 
-		handler.add<Tileset>(name, filename, tileWidth, tileHeight);
+		handler.add<gk::Tileset>(name, filename, configFile);
 
 		tilesetElement = tilesetElement->NextSiblingElement("tileset");
 	}

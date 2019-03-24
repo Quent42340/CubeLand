@@ -12,7 +12,6 @@
  * =====================================================================================
  */
 #include <gk/core/Mouse.hpp>
-#include <gk/gl/RenderTarget.hpp>
 #include <gk/resource/ResourceHandler.hpp>
 
 #include "Button.hpp"
@@ -53,7 +52,7 @@ void Button::update() {
 	}
 }
 
-void Button::draw(gk::RenderTarget &target, gk::RenderStates states) const {
+void Button::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 
 	target.draw(m_rect, states);

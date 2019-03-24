@@ -21,10 +21,8 @@
 #include <SFML/Window/Event.hpp>
 
 #include <gk/core/IntTypes.hpp>
-#include <gk/gl/IDrawable.hpp>
-#include <gk/gl/Transformable.hpp>
 
-class Button : public gk::IDrawable, public gk::Transformable {
+class Button : public sf::Drawable, public sf::Transformable {
 	using Action = std::function<void(void)>;
 
 	public:
@@ -45,7 +43,7 @@ class Button : public gk::IDrawable, public gk::Transformable {
 		void setAction(const Action &action) { m_action = action; }
 
 	private:
-		void draw(gk::RenderTarget &target, gk::RenderStates states) const override;
+		void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
 		Action m_action;
 

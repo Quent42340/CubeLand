@@ -27,11 +27,7 @@
 void Application::init() {
 	gk::CoreApplication::init();
 
-	m_window.create(screenWidth, screenHeight, "CubeLand");
-
-	m_shader.loadFromFile("resources/shaders/game.v.glsl", "resources/shaders/game.f.glsl");
-	m_renderStates.shader = &m_shader;
-	m_renderStates.vertexAttributes = gk::VertexAttribute::Only2d;
+	m_window.create(sf::VideoMode(screenWidth, screenHeight), "CubeLand", sf::Style::Close);
 
 	m_resourceHandler.loadConfigFile<gk::TextureLoader>("resources/config/textures.xml");
 	m_resourceHandler.loadConfigFile<TilesetLoader>("resources/config/tilesets.xml");

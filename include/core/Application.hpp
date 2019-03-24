@@ -15,7 +15,6 @@
 #define APPLICATION_HPP_
 
 #include <gk/core/CoreApplication.hpp>
-#include <gk/gl/Shader.hpp>
 
 #include "KeyboardHandler.hpp"
 
@@ -32,8 +31,6 @@ class Application : public gk::CoreApplication {
 		void onEvent(const sf::Event &event) override;
 
 		KeyboardHandler m_keyboardHandler;
-
-		gk::Shader m_shader;
 };
 
 #endif // APPLICATION_HPP_
