@@ -15,8 +15,7 @@
 #define APPLICATION_HPP_
 
 #include <gk/core/CoreApplication.hpp>
-
-#include "KeyboardHandler.hpp"
+#include <gk/core/input/KeyboardHandler.hpp>
 
 class Application : public gk::CoreApplication {
 	public:
@@ -30,7 +29,7 @@ class Application : public gk::CoreApplication {
 	private:
 		void onEvent(const sf::Event &event) override;
 
-		KeyboardHandler m_keyboardHandler;
+		gk::KeyboardHandler m_keyboardHandler;
 };
 
 #endif // APPLICATION_HPP_
