@@ -27,7 +27,7 @@
 void Application::init() {
 	gk::CoreApplication::init();
 
-	m_window.create(sf::VideoMode(screenWidth, screenHeight), "CubeLand", sf::Style::Close);
+	createWindow(sf::VideoMode(screenWidth, screenHeight), "CubeLand", sf::Style::Close);
 
 	m_resourceHandler.loadConfigFile<gk::TextureLoader>("resources/config/textures.xml");
 	m_resourceHandler.loadConfigFile<TilesetLoader>("resources/config/tilesets.xml");
