@@ -14,6 +14,7 @@
 #include <cmath>
 
 #include <gk/graphics/Image.hpp>
+#include <gk/graphics/Tilemap.hpp>
 #include <gk/scene/behaviour/EasyBehaviour.hpp>
 #include <gk/scene/component/BehaviourComponent.hpp>
 #include <gk/scene/component/CollisionComponent.hpp>
@@ -22,10 +23,10 @@
 #include <gk/scene/component/PositionComponent.hpp>
 
 #include "Application.hpp"
+#include "GameData.hpp"
 #include "GameKey.hpp"
 #include "GamePadMovement.hpp"
 #include "LevelState.hpp"
-#include "Map.hpp"
 #include "PlayerFactory.hpp"
 
 gk::SceneObject PlayerFactory::create(u16 x, u16 y) {
@@ -78,8 +79,8 @@ void PlayerFactory::checkCollisions(gk::SceneObject &player) {
 		float vy = (i > 1) ? movement.v.y : 0.0f;
 
 		if(test
-		&& (!Map::currentMap->isPassable(sides[i][0].x + vx, ceil(sides[i][0].y + vy))
-		 || !Map::currentMap->isPassable(sides[i][1].x + vx, ceil(sides[i][1].y + vy)))) {
+		&& (GameData::currentMap->inTile(sides[i][0].x + vx, ceil(sides[i][0].y + vy), 1)
+		 || GameData::currentMap->inTile(sides[i][1].x + vx, ceil(sides[i][1].y + vy), 1))) {
 			if(i < 2) {
 				movement.v.x = 0;
 
@@ -101,8 +102,8 @@ void PlayerFactory::scrollLevel(gk::SceneObject &player) {
 	gk::Vector2f screenHalfSize{Application::screenWidth  / 2,
 	                            Application::screenHeight / 2};
 
-	gk::Vector2i mapSize{Map::currentMap->width()  * Map::currentMap->tileset().tileWidth(),
-	                     Map::currentMap->height() * Map::currentMap->tileset().tileHeight()};
+	gk::Vector2i mapSize{GameData::currentMap->width()  * GameData::currentMap->tileset().tileWidth(),
+	                     GameData::currentMap->height() * GameData::currentMap->tileset().tileHeight()};
 
 	auto position = player.get<gk::PositionComponent>();
 	gk::Vector2f playerCenter{

@@ -11,13 +11,14 @@
  *
  * =====================================================================================
  */
+#include <gk/graphics/Tilemap.hpp>
 #include <gk/scene/component/CollisionComponent.hpp>
 #include <gk/scene/component/HitboxComponent.hpp>
 #include <gk/scene/component/PositionComponent.hpp>
 
+#include "GameData.hpp"
 #include "KeyFactory.hpp"
 #include "LockComponent.hpp"
-#include "Map.hpp"
 
 void keyAction(gk::SceneObject &key, gk::SceneObject &object, bool isInCollision);
 
@@ -38,7 +39,7 @@ void keyAction(gk::SceneObject &key, gk::SceneObject &object, bool isInCollision
 		key.get<LockComponent>().unlock();
 
 		auto &position = key.get<gk::PositionComponent>();
-		Map::currentMap->setTile(position.x / 16, position.y / 16, 0);
+		GameData::currentMap->setTile(position.x / 16, position.y / 16, 0);
 	}
 }
 

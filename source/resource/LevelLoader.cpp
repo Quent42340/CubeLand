@@ -12,11 +12,11 @@
  * =====================================================================================
  */
 #include <gk/core/XMLFile.hpp>
+#include <gk/graphics/Tilemap.hpp>
 #include <gk/resource/ResourceHandler.hpp>
 #include <gk/scene/Scene.hpp>
 
 #include "LevelLoader.hpp"
-#include "Map.hpp"
 #include "SceneObjectLoader.hpp"
 
 u16 LevelLoader::levelsLoaded = 0;
@@ -28,7 +28,7 @@ void LevelLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
 	while(levelElement) {
 		u16 id = levelElement->IntAttribute("id");
 
-		Tileset &tileset = handler.get<Tileset>(levelElement->Attribute("tileset"));
+		gk::Tileset &tileset = handler.get<gk::Tileset>(levelElement->Attribute("tileset"));
 
 		loadLevel(id, tileset, handler);
 
@@ -38,7 +38,7 @@ void LevelLoader::load(const char *xmlFilename, gk::ResourceHandler &handler) {
 	}
 }
 
-void LevelLoader::loadLevel(u16 id, Tileset &tileset, gk::ResourceHandler &handler) {
+void LevelLoader::loadLevel(u16 id, gk::Tileset &tileset, gk::ResourceHandler &handler) {
 	gk::XMLFile doc("resources/maps/level" + std::to_string(id) + ".tmx");
 
 	tinyxml2::XMLElement *mapElement = doc.FirstChildElement("map").ToElement();
@@ -50,23 +50,23 @@ void LevelLoader::loadLevel(u16 id, Tileset &tileset, gk::ResourceHandler &handl
 
 	SceneObjectLoader::loadObjectsFromLevelID(scene, id);
 
-	std::vector<u16> tiles;
+	std::vector<std::vector<u16>> tiles{{}};
 	tinyxml2::XMLElement *tileElement = mapElement->FirstChildElement("layer")->FirstChildElement("data")->FirstChildElement("tile");
 	while(tileElement) {
-		u16 tileX = tiles.size() % width;
-		u16 tileY = tiles.size() / width;
+		u16 tileX = tiles.back().size() % width;
+		u16 tileY = tiles.back().size() / width;
 
 		s16 tileID = tileElement->IntAttribute("gid") - 1;
 
 		tileID = (tileID >= 0) ? tileID : 0;
 
-		tiles.push_back(tileID);
+		tiles.back().emplace_back(tileID);
 
 		SceneObjectLoader::loadObjectFromTile(scene, tileX, tileY, tileID);
 
 		tileElement = tileElement->NextSiblingElement("tile");
 	}
 
-	handler.add<Map>("level" + std::to_string(id), width, height, tileset, tiles);
+	handler.add<gk::Tilemap>("level" + std::to_string(id), width, height, tileset, tiles);
 }
 

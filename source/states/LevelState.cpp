@@ -11,14 +11,16 @@
  *
  * =====================================================================================
  */
+#include <gk/graphics/Tilemap.hpp>
 #include <gk/resource/ResourceHandler.hpp>
 #include <gk/scene/controller/BehaviourController.hpp>
 #include <gk/scene/controller/MovementController.hpp>
+#include <gk/scene/view/HitboxView.hpp>
 #include <gk/scene/view/SpriteView.hpp>
 
 #include "Application.hpp"
+#include "GameData.hpp"
 #include "LevelState.hpp"
-#include "Map.hpp"
 #include "PlayerFactory.hpp"
 
 #include "DoorFactory.hpp"
@@ -31,12 +33,13 @@ LevelState::LevelState(u16 levelID) {
 
 	view.reset({0, 0, Application::screenWidth, Application::screenHeight});
 
-	Map::currentMap = &gk::ResourceHandler::getInstance().get<Map>("level" + std::to_string(m_levelID));
+	GameData::currentMap = &gk::ResourceHandler::getInstance().get<gk::Tilemap>("level" + std::to_string(m_levelID));
 
 	m_scene = &gk::ResourceHandler::getInstance().get<gk::Scene>("level" + std::to_string(m_levelID) + "-scene");
 	m_scene->addController<gk::BehaviourController>();
 	m_scene->addController<gk::MovementController>();
 	m_scene->addView<gk::SpriteView>();
+	// m_scene->addView<gk::HitboxView>();
 
 	m_player = m_scene->addObject(PlayerFactory::create(2 * 16, 28 * 16)); // FIXME: This is weird
 
@@ -51,7 +54,7 @@ void LevelState::update() {
 void LevelState::draw(gk::RenderTarget &target, gk::RenderStates states) const {
 	target.setView(view);
 
-	target.draw(*Map::currentMap, states);
+	target.draw(*GameData::currentMap, states);
 
 	target.draw(*m_scene, states);
 

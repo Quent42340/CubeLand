@@ -17,13 +17,15 @@
 #include <gk/core/IntTypes.hpp>
 #include <gk/resource/IResourceLoader.hpp>
 
-class Tileset;
+namespace gk {
+	class Tileset;
+}
 
 class LevelLoader : public gk::IResourceLoader {
 	public:
 		void load(const char *xmlFilename, gk::ResourceHandler &handler);
 
-		void loadLevel(u16 id, Tileset &tileset, gk::ResourceHandler &handler);
+		void loadLevel(u16 id, gk::Tileset &tileset, gk::ResourceHandler &handler);
 
 		static u16 levelsLoaded;
 };

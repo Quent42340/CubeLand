@@ -1,22 +1,17 @@
 /*
  * =====================================================================================
  *
- *       Filename:  Tileset.cpp
+ *       Filename:  GameData.cpp
  *
  *    Description:
  *
- *        Created:  15/08/2015 20:51:25
+ *        Created:  08/04/2019 20:37:05
  *
  *         Author:  Quentin Bazin, <quent42340@gmail.com>
  *
  * =====================================================================================
  */
-#include "Tileset.hpp"
+#include "GameData.hpp"
 
-Tileset::Tileset(const std::string &filename, u16 tileWidth, u16 tileHeight) {
-	loadFromFile(filename);
-
-	m_tileWidth = tileWidth;
-	m_tileHeight = tileHeight;
-}
+gk::Tilemap *GameData::currentMap = nullptr;
 
