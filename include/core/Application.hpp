@@ -14,10 +14,9 @@
 #ifndef APPLICATION_HPP_
 #define APPLICATION_HPP_
 
+#include <gk/core/input/KeyboardHandler.hpp>
 #include <gk/core/CoreApplication.hpp>
 #include <gk/gl/Shader.hpp>
-
-#include "KeyboardHandler.hpp"
 
 class Application : public gk::CoreApplication {
 	public:
@@ -31,7 +30,7 @@ class Application : public gk::CoreApplication {
 	private:
 		void onEvent(const SDL_Event &event);
 
-		KeyboardHandler m_keyboardHandler;
+		gk::KeyboardHandler m_keyboardHandler;
 
 		gk::Shader m_shader;
 };
