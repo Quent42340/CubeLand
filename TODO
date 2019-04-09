@@ -1,0 +1,29 @@
+TODO
+
+# GameKit
+
+• DONE: Fix rectangle outlines
+• DONE: Remove last `libegdt` code and remove its repo
+• TODO: Replace `LevelLoader` by `TilemapLoader` and add a `SceneLoader`
+• TODO: Move `GamePadMovement` into `gk::PlatformerMovement` or `gk::SideScrollerMovement`
+   ◦ TODO: Rename `gk::GamePadMovement` to `gk::TopDownMovement`
+• TODO: Replace `Button` with `gk::TextButton`
+
+# Old todo (cf. Notes)
+
+• TODO: Improve CMakeLists.txt
+• TODO: Add `LockSystem` in `Scene`
+• TODO: Improve `LevelListState` code
+   ◦ TODO: Add `ButtonList` or `Menu` class
+• TODO: Add gameplay elements
+   ◦ TODO: Add speed (green) and jump (blue) objects
+• TODO: Make player’s map collision checker reusable for any entity
+   ◦ TODO: Write a `MapCollisionChecker`
+• TODO: Add enemies
+   ◦ TODO: Add a new entity
+   ◦ TODO: Add life and HUD for it
+
+# Issues
+
+• TODO: The game doesn’t reset when you restart it
+
