@@ -20,9 +20,9 @@
 Button::Button(const char *text, u8 fontSize) {
 	m_text.setCharacterSize(fontSize);
 	m_text.setFont("font-default");
-	m_text.setText(text);
+	m_text.setString(text);
 
-	m_rect.setColor(gk::Color::Black);
+	m_rect.setFillColor(gk::Color::Black);
 	m_rect.setOutlineColor(gk::Color::White);
 	m_rect.setOutlineThickness(2);
 	m_rect.setPosition(2, 2); // Outline
@@ -47,9 +47,9 @@ void Button::update() {
 	gk::IntRect hitbox(getPosition().x, getPosition().y, width(), height());
 
 	if(gk::Mouse::isInRect(hitbox)) {
-		m_rect.setColor(gk::Color(100, 100, 100, 75));
+		m_rect.setFillColor(gk::Color(100, 100, 100, 75));
 	} else {
-		m_rect.setColor(gk::Color::Black);
+		m_rect.setFillColor(gk::Color::Black);
 	}
 }
 

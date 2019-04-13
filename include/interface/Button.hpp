@@ -20,7 +20,7 @@
 #include <gk/graphics/RectangleShape.hpp>
 #include <gk/graphics/Text.hpp>
 
-class Button : public gk::IDrawable, public gk::Transformable {
+class Button : public gk::Drawable, public gk::Transformable {
 	using Action = std::function<void(void)>;
 
 	public:

@@ -21,7 +21,7 @@ Text::Text(const char *fontName, unsigned int characterSize) {
 }
 
 Text::Text(const char *fontName, const std::string &text, unsigned int characterSize) : Text(fontName, characterSize) {
-	setText(text);
+	setString(text);
 }
 
 void Text::setMaxWidth(u16 width) {

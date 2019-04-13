@@ -30,14 +30,14 @@ LevelEndState::LevelEndState(gk::ApplicationState *parent, bool isLevelPassed) :
 	m_okButton.setPosition(Application::screenWidth / 2 - m_okButton.width() / 2, 275);
 
 	if(isLevelPassed) {
-		m_rect.setColor(gk::Color(0, 0, 0, 127));
+		m_rect.setFillColor(gk::Color(0, 0, 0, 127));
 	} else {
-		m_rect.setColor(gk::Color(63, 0, 0, 127));
+		m_rect.setFillColor(gk::Color(63, 0, 0, 127));
 	}
 
 	m_rect.setSize(Application::screenWidth, Application::screenHeight);
 
-	m_text.setText((m_isLevelPassed) ? "Level passed!" : "Failed!");
+	m_text.setString((m_isLevelPassed) ? "Level passed!" : "Failed!");
 
 	gk::FloatRect textRect = gk::FloatRect(m_text.getLocalBounds());
 	m_text.setOrigin(textRect.x + textRect.width  / 2,

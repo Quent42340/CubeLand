@@ -24,12 +24,12 @@ LevelListState::LevelListState() {
 	m_title.setPosition(Application::screenWidth / 2 - m_title.getLocalBounds().width / 2 - m_title.getLocalBounds().x, 0);
 
 	m_rectangle.setPosition(30, 100);
-	m_rectangle.setColor(gk::Color::Transparent);
+	m_rectangle.setFillColor(gk::Color::Transparent);
 	m_rectangle.setOutlineColor(gk::Color::White);
 	m_rectangle.setOutlineThickness(2);
 
 	m_cursor.setPosition(45, 110);
-	m_cursor.setColor(gk::Color::Transparent);
+	m_cursor.setFillColor(gk::Color::Transparent);
 	m_cursor.setOutlineColor(gk::Color::White);
 	m_cursor.setOutlineThickness(2);
 }
