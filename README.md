@@ -1,10 +1,10 @@
 # CubeLand
 
-### By gnidmoo
+### By Unarelith
 
-- This game is a basic platformer made with SFML 2.3 and C++11.
+- This game is a basic platformer written in C++11 and using GameKit.
 
-![](http://img15.hostingpics.net/pics/204766screenshot20150814163849.png)
+![](screenshot.png?raw=true)
 
 ## Keys
 
@@ -15,8 +15,8 @@
 
 - Dependencies:
     - [CMake](http://www.cmake.org/download/)
-    - [SFML 2.3](http://www.sfml-dev.org/download/sfml/2.3.1/)
-	- _Linux users: Check your distribution repositories for packages._
+    - [GameKit](http://github.com/Unarelith/GameKit) (requires `SDL2` + `tinyxml2`, will switch to `SFML` starting from 2.6)
+    - _Linux users: Check your distribution repositories for packages._
 - Run `cmake .` at the root of the game folder
 - Run `make`, wait, run the game and enjoy!
 
